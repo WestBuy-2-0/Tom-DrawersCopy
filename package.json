@@ -1,17 +1,24 @@
 {
-    "name": "accordion-drawers",
-    "version": "",
-    "description": "Drop-down info sections with a Product Overview, Product Specifications, Reviews, and Q&A",
-    "author": "Collin Snyder",
-    "license": "",
-    "engines": {
-      "node": ">=6.13.0"
-    },
-    "scripts": {
-    },
-    "dependencies": {
-    },
-    "devDependencies": {
-      "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-    }
+  "name": "accordion-drawers",
+  "version": "",
+  "description": "Drop-down info sections with a Product Overview, Product Specifications, Reviews, and Q&A",
+  "author": "Collin Snyder",
+  "license": "",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+      "start": "nodemon ./server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1",
+    "react": "^16.12.0",
+    "react-dev": "0.0.1",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "jest": "^24.9.0"
   }
+}
