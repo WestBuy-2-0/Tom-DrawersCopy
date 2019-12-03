@@ -8,17 +8,26 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-      "start": "nodemon ./server/server.js"
+    "start": "nodemon ./server/server.js",
+    "test": "jest",
+    "react-dev": "webpack -d --watch"
   },
   "dependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.1",
     "react": "^16.12.0",
     "react-dev": "0.0.1",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0"
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
