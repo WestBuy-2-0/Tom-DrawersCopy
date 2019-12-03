@@ -3,7 +3,7 @@ import $ from "jquery";
 // import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
-import Button from "react-bootstrap/Button";
+import "../styles/Drawers.css";
 
 export default class Drawers extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class Drawers extends React.Component {
 
   render() {
     return (
-      <div id="drawers">
+      <div className="drawers">
         <Card>
           <Card.Header onClick={this.toggle} id="overviewOpen">
             Overview
