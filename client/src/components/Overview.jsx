@@ -4,8 +4,6 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "./DrawerHeader.jsx";
 
-import "../styles/Overview.css";
-
 export default class Overview extends React.Component {
   constructor(props) {
     super(props);

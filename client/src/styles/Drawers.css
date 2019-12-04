@@ -10,8 +10,6 @@ body {
 }
 
 .drawers {
-    /* border-top: 1px solid #c5cbd5;
-    border-bottom: 1px solid #c5cbd5; */
     width: 100%;
     border-bottom-color: rgb(197, 203, 213);
     border-bottom-style: solid;
@@ -41,8 +39,3 @@ body {
 .drawer-caret {
     flex: 0 0 25px;
 }
-
-/* svg {
-    height: 25px;
-    width: 25px;
-} */
