@@ -1,3 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 13px;
+    line-height: normal;
+    color: #040c13;
+    font-family: Human BBY Web,Arial,Helvetica,sans-serif;
+}
+
 .drawers {
-    border: 1px solid lightgray;
+    /* border-top: 1px solid #c5cbd5;
+    border-bottom: 1px solid #c5cbd5; */
+    border-top-color: rgb(197, 203, 213);
+    border-top-style: solid;
+    border-top-width: 0px;
+    border-right-color: rgb(197, 203, 213);
+    border-right-style: solid;
+    border-right-width: 0px;
+    border-bottom-color: rgb(197, 203, 213);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(197, 203, 213);
+    border-left-style: solid;
+    border-left-width: 0px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
+
+.card {
+    border-top-color: rgb(197, 203, 213);
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.card-header {
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+svg {
+    height: 25px;
+    width: 25px;
 }
