@@ -17,31 +17,6 @@ export default class Drawers extends React.Component {
 
   }
 
-//   toggle(e) {
-//     e.preventDefault();
-//     e.persist();
-
-//     const drawer = e.currentTarget.id;
-
-//     if (drawer === "overviewOpen") {
-//       this.setState(state => {
-//         return { overviewOpen: !state.overviewOpen };
-//       });
-//     } else if (drawer === "specsOpen") {
-//       this.setState(state => {
-//         return { specsOpen: !state.specsOpen };
-//       });
-//     } else if (drawer === "reviewsOpen") {
-//       this.setState(state => {
-//         return { reviewsOpen: !state.reviewsOpen };
-//       });
-//     } else if (drawer === "qandaOpen") {
-//       this.setState(state => {
-//         return { qandaOpen: !state.qandaOpen };
-//       });
-//     }
-//   }
-
   render() {
     return (
       <div className="drawers">
