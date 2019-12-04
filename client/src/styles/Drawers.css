@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 13px;
+    line-height: normal;
+    color: #040c13;
+    font-family: Human BBY Web,Arial,Helvetica,sans-serif;
+}
+
+.drawers {
+    width: 100%;
+    border-bottom-color: rgb(197, 203, 213);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.card {
+    border-top-color: rgb(197, 203, 213);
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.drawer-label {
+    flex: 1 0 0;
+}
+
+.drawer-caret {
+    flex: 0 0 25px;
+}
