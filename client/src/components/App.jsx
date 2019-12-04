@@ -1,6 +1,6 @@
 import React from "react";
 import Drawers from "./Drawers.jsx";
-
+import '../styles/App.css';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -8,10 +8,14 @@ export default class App extends React.Component {
 
     this.state = {
       productId: 1
-    }
+    };
   }
 
   render() {
-    return <Drawers productId={this.state.productId} />;
+    return (
+      <div className="container">
+        <Drawers productId={this.state.productId} />
+      </div>
+    );
   }
 }
