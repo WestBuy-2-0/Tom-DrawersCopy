@@ -2,15 +2,15 @@
     box-sizing: border-box;
 }
 
-.drawer-content-container {
+.overview-content-container {
     display: flex;
 }
 
-.drawer-content-container:first-child {
+.overview-content-container:first-child {
     margin-top: 24px;
 }
 
-.drawer-content-container:last-child {
+.overview-content-container:last-child {
     margin-bottom: 24px;
 }
 

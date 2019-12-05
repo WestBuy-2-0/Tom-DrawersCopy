@@ -15,7 +15,7 @@ export default class OverviewBody extends React.Component {
   render() {
     return (
       <div className="drawer-content">
-        <div className="drawer-content-container product-description-container">
+        <div className="overview-content-container product-description-container">
           <h3 className="description-heading">Description</h3>
           <div className="description-copy">
             In quilt yearlings, gobblers pumpkin are porky pig beef, sheep rose
@@ -27,7 +27,7 @@ export default class OverviewBody extends React.Component {
           <div className="spacer-row-3"></div>
           <div className="spacer-row-9 r-border-bottom r-padding-bottom r-margin-bottom"></div>
         </div>
-        <div className="drawer-content-container product-features-container">
+        <div className="overview-content-container product-features-container">
           <h3 className="features-heading">Features</h3>
           <div className="features-body-container">
             <div className="features-list">
@@ -67,7 +67,7 @@ export default class OverviewBody extends React.Component {
           <div className="spacer-row-3"></div>
           <div className="spacer-row-9 r-border-bottom r-padding-bottom r-margin-bottom"></div>
         </div>
-        <div className="drawer-content-container product-included-container">
+        <div className="overview-content-container product-included-container">
           <h3 className="whats-included-heading">What's Included</h3>
           <div className="whats-included-body-container">
             <ul className="whats-included-list">
