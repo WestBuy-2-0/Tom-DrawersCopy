@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewHeaderGraphic from "./ReviewHeaderGraphic.jsx";
+import RatingHeader from "./reviews/RatingHeader.jsx";
 
 const DrawerHeader = props => {
   const upCaretPath =
@@ -13,9 +13,11 @@ const DrawerHeader = props => {
     <>
       <span className="drawer-label">
         {props.label}
-        <ReviewHeaderGraphic
+        <RatingHeader
           isOpen={props.isOpen}
-          productId={1}
+          productId={props.productId}
+          avgRating={props.avgRating}
+          reviewCount={props.reviewCount}
           isReviewDrawer={props.label === "Reviews"}
         />
       </span>
@@ -30,7 +32,10 @@ const DrawerHeader = props => {
 
 DrawerHeader.propTypes = {
   label: PropTypes.string,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  productId: PropTypes.number,
+  avgRating: PropTypes.number,
+  reviewCount: PropTypes.number
 };
 
 export default DrawerHeader;

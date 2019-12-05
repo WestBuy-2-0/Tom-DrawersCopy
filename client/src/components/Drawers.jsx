@@ -4,7 +4,7 @@ import Collapse from "react-bootstrap/Collapse";
 
 import Overview from './Overview.jsx';
 import Specs from './Specs.jsx';
-import Reviews from './Reviews.jsx';
+import ReviewDrawer from './reviews/ReviewDrawer.jsx';
 import QandA from './QandA.jsx';
 
 import "../styles/Drawers.css";
@@ -22,7 +22,7 @@ export default class Drawers extends React.Component {
       <div className="drawers">
         <Overview />
         <Specs />
-        <Reviews />
+        <ReviewDrawer />
         <QandA />
       </div>
     );
