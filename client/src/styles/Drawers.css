@@ -9,6 +9,19 @@ body {
     font-family: Human BBY Web,Arial,Helvetica,sans-serif;
 }
 
+h4 {
+    font-weight: bold;
+}
+
+ul {
+    padding: 0;
+}
+
+.body-copy {
+    font-size: 13px;
+    line-height: normal;
+}
+
 .drawers {
     width: 100%;
     border-bottom-color: rgb(197, 203, 213);
@@ -38,4 +51,35 @@ body {
 
 .drawer-caret {
     flex: 0 0 25px;
+}
+
+.spacer-row {
+    display: flex;
+}
+
+.spacer-row-3, .spacer-row-9 {
+    position: relative;
+    min-height: 1px;
+    margin-left: -10px;
+    /* margin-right: -10px; */
+}
+
+.spacer-row-9 {
+    flex: 3;
+}
+
+.spacer-row-3 {
+    flex: 1;
+}
+
+.r-padding-bottom {
+    padding-bottom: 24px;
+}
+
+.r-margin-bottom {
+    margin-bottom: 24px;
+}
+
+.r-border-bottom {
+    border-bottom: 1px solid #c5cbd5;
 }
