@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ReviewHeaderGraphic from "./ReviewHeaderGraphic.jsx";
 
 const DrawerHeader = props => {
   const upCaretPath =
@@ -10,7 +11,14 @@ const DrawerHeader = props => {
 
   return (
     <>
-      <span className="drawer-label">{props.label}</span>
+      <span className="drawer-label">
+        {props.label}
+        <ReviewHeaderGraphic
+          isOpen={props.isOpen}
+          productId={1}
+          isReviewDrawer={props.label === "Reviews"}
+        />
+      </span>
       <span className="drawer-caret">
         <svg viewBox="0 0 32 32">
           <path className="caret" d={currentCaretPath}></path>
