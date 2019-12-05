@@ -11,6 +11,21 @@
     background-repeat: no-repeat;
     display: inline-block;
     position: relative;
+    margin-bottom: 2px;
+}
+
+.drawer-header-review-count {
+    display: inline-block;
+    line-height: 18px;
+    margin-top: 3px;
+    padding-left: 5px;
+    vertical-align: top;
+}
+
+.drawer-header-total-reviews {
+    font-weight: 400;
+    font-size: 14px;
+    vertical-align: top;
 }
 
 .stars-small {
