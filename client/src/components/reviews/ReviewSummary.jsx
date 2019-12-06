@@ -17,7 +17,7 @@ const ReviewSummary = props => {
             <span className="spacer-column"></span>
             <RatingFilter totalReviews={props.reviewSummaryData.review_count} ratingCounts={ratingCounts} />
             <span className="spacer-column"></span>
-            {/* <RecommendationDonut /> */}
+            <RecommendationDonut pctRec={props.reviewSummaryData.would_recommend_pct} />
         </div>
     );
 };

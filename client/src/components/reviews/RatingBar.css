@@ -3,6 +3,7 @@
     grid-template-columns: 26px 45px minmax(100px, 1fr) 60px;
     height: 16px;
     margin-top: 13px;
+    cursor: pointer;
 }
 
 .checkbox-container, .star-rating {
@@ -18,10 +19,13 @@
 
 .checkbox-container > input {
     opacity: 0;
+    position: absolute;
     height: 100%;
     width: 100%;
     margin: 0;
     border: 0;
+    z-index: 1;
+    cursor: pointer;
 }
 
 .fancy-checkbox {
@@ -47,7 +51,20 @@
 }
 
 .checked {
+    background-image: none
+}
+
+.checkmark {
+    display: none;
+    position: relative;
+    width: 18px;
+    height: 18px;
     background-image: url(../../assets/checkmark.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    top: -4px;
+    left: 1px;
+    background-position: 0px 0px;
 }
 
 .star {
