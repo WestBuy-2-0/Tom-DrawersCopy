@@ -1,5 +1,37 @@
 .customer-rating-heading {
     font-size: 17px;
+    padding-bottom: 10px;
+}
+
+.overall-rating {
+    display: inline-block;
+    text-align: start;
+    font-size: 40px;
+    vertical-align: top;    
+}
+
+.stars-and-ratings {
+    display: grid;
+    grid-template-rows: 1fr 21px;
+    /* flex-wrap: wrap;
+    flex-grow: 1;
+    flex-basis: 135px; */
+    margin-top: 5px;
+}
+
+.total-reviews {
+    /* flex-shrink: 0; */
+    margin-top: 5px;
+}
+
+.all-reviews-link {
+    display: block;
+    margin-top: 15px; 
+}
+
+.recommend-pct {
+    text-align: left;
+    margin-top: 10px;
 }
 
 .stars {
@@ -9,20 +41,6 @@
     position: relative;
     margin-bottom: 2px;
 }
-
-/* .drawer-header-review-count {
-    display: inline-block;
-    line-height: 18px;
-    margin-top: 3px;
-    padding-left: 5px;
-    vertical-align: top;
-}
-
-.drawer-header-total-reviews {
-    font-weight: 400;
-    font-size: 14px;
-    vertical-align: top;
-} */
 
 .stars-medium {
     width: 137px;
