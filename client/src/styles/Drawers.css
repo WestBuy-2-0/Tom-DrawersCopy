@@ -61,7 +61,6 @@ ul {
     position: relative;
     min-height: 1px;
     margin-left: -10px;
-    /* margin-right: -10px; */
 }
 
 .spacer-row-9 {
@@ -69,6 +68,10 @@ ul {
 }
 
 .spacer-row-3 {
+    flex: 1;
+}
+
+.spacer-row-1 {
     flex: 1;
 }
 
@@ -83,3 +86,4 @@ ul {
 .r-border-bottom {
     border-bottom: 1px solid #c5cbd5;
 }
+

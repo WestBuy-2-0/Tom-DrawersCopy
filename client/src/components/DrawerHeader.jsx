@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import RatingHeader from "./reviews/RatingHeader.jsx";
 
 const DrawerHeader = props => {
   const upCaretPath =
@@ -10,7 +11,16 @@ const DrawerHeader = props => {
 
   return (
     <>
-      <span className="drawer-label">{props.label}</span>
+      <span className="drawer-label">
+        {props.label}
+        <RatingHeader
+          isOpen={props.isOpen}
+          productId={props.productId}
+          avgRating={props.avgRating}
+          reviewCount={props.reviewCount}
+          isReviewDrawer={props.label === "Reviews"}
+        />
+      </span>
       <span className="drawer-caret">
         <svg viewBox="0 0 32 32">
           <path className="caret" d={currentCaretPath}></path>
@@ -22,7 +32,10 @@ const DrawerHeader = props => {
 
 DrawerHeader.propTypes = {
   label: PropTypes.string,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  productId: PropTypes.number,
+  avgRating: PropTypes.number,
+  reviewCount: PropTypes.number
 };
 
 export default DrawerHeader;

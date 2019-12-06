@@ -2,6 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "./DrawerHeader.jsx";
+import SpecsBody from "./SpecsBody.jsx";
 
 export default class Specs extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class Specs extends React.Component {
         </Card.Header>
         <Collapse in={this.state.open}>
           <Card.Body>
-            This is where the product specifications will go.
+            <SpecsBody productId={1} />
           </Card.Body>
         </Collapse>
       </Card>
