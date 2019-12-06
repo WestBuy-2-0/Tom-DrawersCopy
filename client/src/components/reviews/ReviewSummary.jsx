@@ -14,7 +14,9 @@ const ReviewSummary = props => {
     return (
         <div className="review-summary-container">
             <RatingSummary avgRating={props.reviewSummaryData.avg_rating} reviewCount={props.reviewSummaryData.review_count} recPct={props.reviewSummaryData.would_recommend_pct} />
+            <span className="spacer-column"></span>
             <RatingFilter totalReviews={props.reviewSummaryData.review_count} ratingCounts={ratingCounts} />
+            <span className="spacer-column"></span>
             {/* <RecommendationDonut /> */}
         </div>
     );

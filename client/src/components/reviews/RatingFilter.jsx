@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import RatingBar from "./RatingBar.jsx";
 
+import styles from "./RatingFilter.css";
+
 export default class RatingFilter extends React.Component {
 
     constructor(props) {

@@ -28,14 +28,14 @@ export default class RatingBar extends React.Component {
                 <div className="checkbox-container">
                     <input type="checkbox" id={this.props.starRating + "-checkbox"} name={this.props.starRating + "-checkbox"} checked={this.state.checked} onChange={this.handleChange} ></input>
                 </div>
-                <span className="star-rating">
-                    <span>{this.props.starRating}</span>
+                <div className="star-rating">
+                    <span className="star">{this.props.starRating}</span>
                     <i className="gold-star"></i>
-                </span>
-                <span className="progress-bar">
+                </div>
+                <div className="progress-bar">
                     <span className="progress-bar-filled" style={{width: this.progressBarPct}}></span>
-                </span>
-                <span className="rating-count"></span>
+                </div>
+                <div className="rating-count">{this.props.ratingCount}</div>
             </div>
         )
     }
