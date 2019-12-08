@@ -9,7 +9,7 @@ module.exports = {
       rating: 5,
       title: "Lorem ipsume cowboy tumbleweed and no stagecoach.",
       text:
-        "Outhouse at nails mower. Onion organic oranges and purr ducks canning owls at a squeal. Grapes at yams mushrooms organic berries gobble. Haybine carrots soybeans, owls duck raising or, cheep in plows. Hoot squeal moose quack, crows doggies frogs crickets chirp. Cat at pineapples pigeons. Lamb in eggplant baler rain barrels manure hay rake. veterinarian blue berrie. Cattle jelly canning. Rooster celery pineapples fertilizer, a melon chirp pets in. Grapes at yams mushrooms organic berries gobble. In eggplant, quonset is grain bins, grain trucks quonset pole shed, with fences gates zucchini carrots scra.",
+        "Outhouse at nails mower. Onion organic oranges and purr ducks canning owls at a squeal. Grapes at yams mushrooms organic berries gobble. Haybine carrots soybeans, owls duck raising or, cheep in plows. \n\nHoot squeal moose quack, crows doggies frogs crickets chirp. Cat at pineapples pigeons. Lamb in eggplant baler rain barrels manure hay rake. veterinarian blue berrie. Cattle jelly canning. Rooster celery pineapples fertilizer, a melon chirp pets in. Grapes at yams mushrooms organic berries gobble. \n\nIn eggplant, quonset is grain bins, grain trucks quonset pole shed, with fences gates zucchini carrots scra.",
       verified_purchase: true,
       would_recommend: true,
       helpful_count: 8,
