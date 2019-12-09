@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import $ from "jquery";
+import Button from "react-bootstrap/Button";
 
 import styles from "./ReviewItem.css";
 
@@ -7,26 +9,25 @@ const ReviewItem = props => {
   const wouldRecommendText = props.reviewInfo.would_recommend
     ? "I would recommend this to a friend"
     : "";
-
   const wouldRecommendIcon = props.reviewInfo.would_recommend
     ? "inline-block"
     : "none";
-
   const starClasses = ` stars stars-small stars-small-${props.reviewInfo.rating}-0`;
-
   const submissionDate = props.reviewInfo.submission_date;
-
-  const bodyText = props.reviewInfo.text;
+  const featuresDisplay = props.reviewInfo.rated_features ? "block" : "none";
 
   return (
     <li className="review-item">
       <div className="review-item-header">
-        <div className="review-author-container">AuthorName</div>
-        <div className="feature-ratings">
+        <div className="author-name">{props.reviewInfo.submitter}</div>
+        <div className="feature-ratings" style={{"display": featuresDisplay}}>
           <h4 className="feature-header">Features</h4>
           <div className="feature-rating-bars">
             <div className="quality-rating-group">
               <div className="rating-description">Quality</div>
+              <div className="rating-bar-group">
+                  {/* map out RatingBar components depending on actual rating */ }  
+              </div>
             </div>
             <div className="value-rating-group">
               <div className="rating-description">Value</div>
@@ -61,10 +62,9 @@ const ReviewItem = props => {
           {wouldRecommendText}
         </div>
         <div className="feedback-options">
-          <span className="helpful">
-            <a href="#">Helpful ({props.reviewInfo.helpful_count})</a>
-          </span>
-          <span className="feedback-spacer"></span>
+          <Button variant="outline-primary" className="helpful">
+            Helpful ({props.reviewInfo.helpful_count})
+          </Button>
           <span className="unhelpful">
             <a href="#">Unhelpful ({props.reviewInfo.unhelpful_count})</a>
           </span>

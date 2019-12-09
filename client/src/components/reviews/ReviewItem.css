@@ -13,6 +13,21 @@ h4 {
     width: 25%;
 }
 
+.author-name {
+    font-size: 15px;
+    color: #0457c8;
+    font-weight: bold;
+}
+
+.feature-ratings {
+    margin: 20px 0;
+}
+
+.feature-header {
+    font-size: 13px;
+    font-weight: bold;
+}
+
 .review-item-body {
     width: 75%;
 }
@@ -46,6 +61,30 @@ h4 {
 
 .post-date {
     color: #55555a;
+}
+
+.feedback-options {
+    display: flex;
+    align-items: center;
+}
+
+.feedback-options {
+    color: #0457c8;
+}
+
+.helpful {
+    border: 1px solid #c5cbd5; 
+    padding: 0 7px;
+    margin-right: 12px;
+    height: 30px;
+    font-size: 13px;
+    background-color: #fff;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.helpful:hover {
+    background-color: #001E73;
+    color: #fff;
 }
 
 .review-content {

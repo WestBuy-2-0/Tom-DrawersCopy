@@ -5,7 +5,6 @@ import RatingBar from "./RatingBar.jsx";
 import styles from "./RatingFilter.css";
 
 const RatingFilter = props => {
-    console.log("Rendering RatingFilter");
     return (
         <div className="rating-filter-container">
             <fieldset>
