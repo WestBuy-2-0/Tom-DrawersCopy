@@ -42,7 +42,7 @@ const ReviewItem = props => {
           </span>
           <span className="review-info-divider">|</span>
           <span className="post-date">
-            Posted {submissionDate.toLocaleString()}
+            Posted {submissionDate.toLocaleDateString()}
           </span>
         </div>
         <div className="review-content">{props.reviewInfo.text}</div>
