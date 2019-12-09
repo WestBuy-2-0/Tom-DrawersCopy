@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import Button from "react-bootstrap/Button";
+import FeatureRatingBar from "./FeatureRatingBar.jsx";
 
 import styles from "./ReviewItem.css";
 
@@ -23,18 +24,9 @@ const ReviewItem = props => {
         <div className="feature-ratings" style={{"display": featuresDisplay}}>
           <h4 className="feature-header">Features</h4>
           <div className="feature-rating-bars">
-            <div className="quality-rating-group">
-              <div className="rating-description">Quality</div>
-              <div className="rating-bar-group">
-                  {/* map out RatingBar components depending on actual rating */ }  
-              </div>
-            </div>
-            <div className="value-rating-group">
-              <div className="rating-description">Value</div>
-            </div>
-            <div className="ease-of-use-rating-group">
-              <div className="rating-description">Ease of Use</div>
-            </div>
+            <FeatureRatingBar feature="Quality" featureRating={props.reviewInfo.quality_rating} />
+            <FeatureRatingBar feature="Value" featureRating={props.reviewInfo.value_rating} />
+            <FeatureRatingBar feature="Ease of Use" featureRating={props.reviewInfo.ease_of_use_rating} />
           </div>
         </div>
       </div>
