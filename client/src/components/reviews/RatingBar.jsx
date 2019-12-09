@@ -10,13 +10,32 @@ export default class RatingBar extends React.Component {
     super(props);
 
     this.state = {
-      checked: false
+      checked: false,
+      progressBarPct: 0
     };
 
-    this.progressBarPct = `${(this.props.ratingCount /
-      this.props.totalReviews) *
-      100}%`;
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    console.log("I'm mounting!!");
+    console.log(
+      "On mount, this is rating count: ",
+      this.props.ratingCount,
+      " and total count: ",
+      this.props.totalReviews
+    );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.totalReviews !== prevProps.totalReviews) {
+      this.setState((state, props) => {
+        return {
+          progressBarPct:
+            (parseInt(props.ratingCount) / parseInt(props.totalReviews)) * 100
+        };
+      });
+    }
   }
 
   handleChange() {
@@ -41,13 +60,24 @@ export default class RatingBar extends React.Component {
   }
 
   render() {
+    console.log(
+      "Rendering RatingBar - ",
+      "rating count: ",
+      this.props.ratingCount,
+      "total reviews: ",
+      this.props.totalReviews
+    );
+    console.log("ProgressBarPct: ", this.state.progressBarPct);
+
     return (
       <div
         className="rating-bar-container"
         onMouseEnter={() =>
           $($(`#${this.props.starRating}-fancy-checkbox`).addClass("checked"))
         }
-        onMouseLeave={() => $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked")}
+        onMouseLeave={() =>
+          $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked")
+        }
       >
         <div className="checkbox-container">
           <input
@@ -74,7 +104,7 @@ export default class RatingBar extends React.Component {
         <div className="progress-bar">
           <span
             className="progress-bar-filled"
-            style={{ width: this.progressBarPct }}
+            style={{ width: this.state.progressBarPct }}
           ></span>
         </div>
         <div className="rating-count">{this.props.ratingCount}</div>

@@ -11,10 +11,35 @@ export default class ReviewDrawer extends React.Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      reviewData: {
+        count: 0,
+        reviews: [],
+        reviewSummaryData: [
+          {
+            product_id: 0,
+            review_count: 0,
+            avg_rating: 0,
+            5: 0,
+            4: 0,
+            3: 0,
+            2: 0,
+            1: 0,
+            would_recommend_pct: 0
+          }
+        ]
+      }
     };
 
     this.toggle = this.toggle.bind(this);
+  }
+
+  componentDidMount() {
+    //query for review data here?
+    this.setState({ reviewData: dummyReviews }, ()=> {
+      console.log('review state updated');
+      console.log(this.state.reviewData.reviewSummaryData[0].review_count);
+    });
   }
 
   toggle() {
@@ -24,14 +49,15 @@ export default class ReviewDrawer extends React.Component {
   }
 
   render() {
+    console.log("Rendering ReviewDrawer");
     return (
       <Card>
         <Card.Header onClick={this.toggle}>
           <DrawerHeader
             isOpen={this.state.open}
             productId={55}
-            avgRating={dummyReviews.reviewSummaryData[0].avg_rating}
-            reviewCount={dummyReviews.count}
+            avgRating={this.state.reviewData.reviewSummaryData[0].avg_rating}
+            reviewCount={this.state.reviewData.count}
             label="Reviews"
           />
         </Card.Header>
@@ -39,8 +65,8 @@ export default class ReviewDrawer extends React.Component {
           <Card.Body>
             <ReviewBody
               productId={55}
-              reviewSummaryData={dummyReviews.reviewSummaryData[0]}
-              reviewData={dummyReviews.reviews}
+              reviewSummaryData={this.state.reviewData.reviewSummaryData[0]}
+              reviewData={this.state.reviewData.reviews}
             />
           </Card.Body>
         </Collapse>
