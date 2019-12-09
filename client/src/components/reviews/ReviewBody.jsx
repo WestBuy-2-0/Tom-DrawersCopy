@@ -11,7 +11,7 @@ const ReviewBody = props => {
         <div className="drawer-content">
             <ReviewSummary reviewSummaryData={props.reviewSummaryData} />
             <ReviewFilters />
-            <ReviewList reviewData={props.reviewData} />
+            <ReviewList reviewData={props.reviewData} totalReviews={props.reviewSummaryData.reviewCount}/>
         </div>
     )
 }

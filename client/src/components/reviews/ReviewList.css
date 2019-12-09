@@ -1,3 +1,11 @@
+.review-list-container {
+    border-top: 1px solid #c5cbd5;
+}
+
+.review-list-info {
+    margin-top: 20px;
+}
+
 .see-all-reviews-btn-container {
     margin: 20px 0 40px 0;
     text-align: center;
