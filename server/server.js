@@ -1,5 +1,8 @@
 const express = require("express");
+// const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
 const port = 3333;
+
+// writeReviews.writeReviews();
 
 const app = express();
 
