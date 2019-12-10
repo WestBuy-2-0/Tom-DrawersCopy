@@ -5,6 +5,8 @@ import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import OverviewBody from "./OverviewBody.jsx";
 
+import overviewDummyData from "../../assets/overviewDummyData.js";
+
 import styles from './Overview.css';
 
 export default class Overview extends React.Component {
@@ -35,7 +37,7 @@ export default class Overview extends React.Component {
         </Card.Header>
         <Collapse in={this.state.open}>
           <Card.Body>
-            <OverviewBody productId={this.props.productId}/>
+            <OverviewBody overviewData={overviewDummyData}/>
           </Card.Body>
         </Collapse>
       </Card>
