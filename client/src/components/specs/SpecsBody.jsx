@@ -3,37 +3,26 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import Card from "react-bootstrap/Card";
 import SpecCategoryRow from "./SpecCategoryRow.jsx";
-import specsDummyData from "../../assets/specsDummyData.js";
 import "./SpecsBody.css";
 
-export default class SpecsBody extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      productId: 1
-    };
-  }
-
-  //render data based on State data passed down from component above - refactor this component into functional
-  render() {
+const SpecsBody = props => {
     return (
       <div className="drawer-content">
         <SpecCategoryRow
           category="Key Specs"
-          specData={specsDummyData.key_specs}
+          specData={props.specsData.key_specs}
         />
         <div className="spacer-row">
           <div className="spacer-row-1 r-border-bottom r-padding-bottom r-margin-bottom"></div>
         </div>
-        <SpecCategoryRow category="General" specData={specsDummyData.general} />
+        <SpecCategoryRow category="General" specData={props.specsData.general} />
         <div className="spacer-row">
           <div className="spacer-row-3"></div>
           <div className="spacer-row-9 r-border-bottom r-padding-bottom r-margin-bottom"></div>
         </div>
         <SpecCategoryRow
           category="Warranty"
-          specData={specsDummyData.warranty}
+          specData={props.specsData.warranty}
         />
         <div className="spacer-row">
           <div className="spacer-row-3"></div>
@@ -41,13 +30,14 @@ export default class SpecsBody extends React.Component {
         </div>
         <SpecCategoryRow
           category="Other"
-          specData={specsDummyData.other}
+          specData={props.specsData.other}
         />
       </div>
     );
-  }
-}
+  };
 
 SpecsBody.propTypes = {
-  productId: PropTypes.number
+  specsData: PropTypes.object
 };
+
+export default SpecsBody;
