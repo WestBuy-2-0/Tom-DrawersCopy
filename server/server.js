@@ -1,4 +1,5 @@
 const express = require("express");
+const mountRoutes = require("./routes");
 const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
 const writeOverview = require("./dataGenerators/overviewDataGenerator.js");
 const writeSpecs = require("./dataGenerators/specsDataGenerator.js");
@@ -14,15 +15,25 @@ const app = express();
 app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
 
-app.get('/overview', (req, res) => {
+mountRoutes(app);
+
+app.get("/description", (req, res) => {
   res.send("Received your get request for overviews");
 });
 
-app.get('/features', (req, res) => {
+app.get("/features", (req, res) => {
   res.send("Received your get request for features");
 });
 
-app.get('/reviews', (req, res) => {
+app.get("/included", (req, res) => {
+  res.send("Received your get request for features");
+});
+
+app.get("/specifications", (req, res) => {
+  res.send("Received your get request for features");
+});
+
+app.get("/reviews", (req, res) => {
   res.send("Received your get request for reviews");
 });
 
