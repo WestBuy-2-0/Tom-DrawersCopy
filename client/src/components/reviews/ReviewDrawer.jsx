@@ -1,10 +1,12 @@
 import React from "react";
 // import "jquery";
+import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import ReviewBody from "./ReviewBody.jsx";
 import dummyReviews from "../../assets/reviewDummyData.js";
+import axios from "axios";
 
 export default class ReviewDrawer extends React.Component {
   constructor(props) {
@@ -15,19 +17,17 @@ export default class ReviewDrawer extends React.Component {
       reviewData: {
         count: 0,
         reviews: [],
-        reviewSummaryData: [
-          {
-            product_id: 0,
-            review_count: 0,
-            avg_rating: 0,
-            5: 0,
-            4: 0,
-            3: 0,
-            2: 0,
-            1: 0,
-            would_recommend_pct: 0
-          }
-        ]
+        reviewSummaryData: {
+          product_id: 0,
+          review_count: 0,
+          average_rating: 0,
+          five_star: 0,
+          four_star: 0,
+          three_star: 0,
+          two_star: 0,
+          one_star: 0,
+          would_recommend_pct: 0
+        }
       }
     };
 
@@ -36,10 +36,15 @@ export default class ReviewDrawer extends React.Component {
 
   componentDidMount() {
     //query for review data here?
-    this.setState({ reviewData: dummyReviews }, ()=> {
-      console.log('review state updated');
-      console.log(this.state.reviewData.reviewSummaryData[0].review_count);
-    });
+    axios
+      .get(`http://127.0.0.1:3333/reviews/${this.props.productId}`)
+      .then(data => {
+        console.log(data.data);
+        this.setState({ reviewData: data.data }, () => {
+          console.log("review state updated");
+          console.log(this.state.reviewData.reviewSummaryData.review_count);
+        });
+      });
   }
 
   toggle() {
@@ -56,7 +61,7 @@ export default class ReviewDrawer extends React.Component {
           <DrawerHeader
             isOpen={this.state.open}
             productId={55}
-            avgRating={this.state.reviewData.reviewSummaryData[0].avg_rating}
+            avgRating={this.state.reviewData.reviewSummaryData.average_rating}
             reviewCount={this.state.reviewData.count}
             label="Reviews"
           />
@@ -65,7 +70,7 @@ export default class ReviewDrawer extends React.Component {
           <Card.Body>
             <ReviewBody
               productId={55}
-              reviewSummaryData={this.state.reviewData.reviewSummaryData[0]}
+              reviewSummaryData={this.state.reviewData.reviewSummaryData}
               reviewData={this.state.reviewData.reviews}
             />
           </Card.Body>
@@ -74,3 +79,7 @@ export default class ReviewDrawer extends React.Component {
     );
   }
 }
+
+ReviewDrawer.propTypes = {
+  productId: PropTypes.number
+};

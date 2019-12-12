@@ -95,7 +95,7 @@ module.exports = {
     {
       product_id: 55,
       review_count: 5,
-      avg_rating: 3.4,
+      average_rating: 3.4,
       five_star: 1,
       four_star: 2,
       three_star: 1,

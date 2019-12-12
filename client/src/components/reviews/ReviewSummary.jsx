@@ -18,7 +18,7 @@ const ReviewSummary = props => {
   return (
     <div className="review-summary-container">
       <RatingSummary
-        avgRating={props.reviewSummaryData.avg_rating}
+        avgRating={props.reviewSummaryData.average_rating}
         reviewCount={props.reviewSummaryData.review_count}
         recPct={props.reviewSummaryData.would_recommend_pct}
       />

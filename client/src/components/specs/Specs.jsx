@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import SpecsBody from "./SpecsBody.jsx";
+import axios from "axios";
 import specsDummyData from "../../assets/specsDummyData.js";
 
 export default class Specs extends React.Component {
@@ -11,11 +12,27 @@ export default class Specs extends React.Component {
     super(props);
 
     this.state = {
-      open: false
-      //cache overview info for given productId here
+      open: false,
+      specData: {
+        product_id: null,
+        key_specs: [],
+        general: [],
+        warranty: [],
+        other: []
+      }
     };
 
     this.toggle = this.toggle.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`http://127.0.0.1:3333/specs/${this.props.productId}`)
+    .then(data => {
+      console.log(data.data);
+      this.setState({ specData: data.data }, () => {
+        console.log("Specs state updated");
+      });
+    });
   }
 
   toggle() {
@@ -34,7 +51,7 @@ export default class Specs extends React.Component {
         </Card.Header>
         <Collapse in={this.state.open}>
           <Card.Body>
-            <SpecsBody specsData={specsDummyData} />
+            <SpecsBody specsData={this.state.specData} />
           </Card.Body>
         </Collapse>
       </Card>

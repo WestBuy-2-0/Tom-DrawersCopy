@@ -1,5 +1,6 @@
 const express = require("express");
 const mountRoutes = require("./routes");
+const cors = require("cors");
 const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
 const writeOverview = require("./dataGenerators/overviewDataGenerator.js");
 const writeSpecs = require("./dataGenerators/specsDataGenerator.js");
@@ -14,28 +15,9 @@ const app = express();
 
 app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
+app.use(cors());
 
 mountRoutes(app);
-
-app.get("/description", (req, res) => {
-  res.send("Received your get request for overviews");
-});
-
-app.get("/features", (req, res) => {
-  res.send("Received your get request for features");
-});
-
-app.get("/included", (req, res) => {
-  res.send("Received your get request for features");
-});
-
-app.get("/specifications", (req, res) => {
-  res.send("Received your get request for features");
-});
-
-app.get("/reviews", (req, res) => {
-  res.send("Received your get request for reviews");
-});
 
 app.listen(port, () => {
   console.log("Now listening on port " + port + "!");
