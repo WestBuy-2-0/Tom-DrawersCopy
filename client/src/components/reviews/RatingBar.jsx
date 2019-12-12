@@ -11,20 +11,11 @@ export default class RatingBar extends React.Component {
 
     this.state = {
       checked: false,
-      progressBarPct: 0
+      progressBarPct: 0,
+      disabled: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    console.log("I'm mounting!!");
-    console.log(
-      "On mount, this is rating count: ",
-      this.props.ratingCount,
-      " and total count: ",
-      this.props.totalReviews
-    );
   }
 
   componentDidUpdate(prevProps) {
@@ -35,7 +26,14 @@ export default class RatingBar extends React.Component {
             (parseInt(props.ratingCount) / parseInt(props.totalReviews)) * 100
         };
       });
+      if (this.props.ratingCount === 0) {
+        $(`#${this.props.starRating}-fancy-checkbox`).addClass("disabled");
+        $(`#${this.props.starRating}-container`).addClass("disabled-cursor");
+        this.setState({disabled: true});
+      }
     }
+
+    
   }
 
   handleChange() {
@@ -44,7 +42,6 @@ export default class RatingBar extends React.Component {
         return { checked: !state.checked };
       },
       () => {
-        console.log("is checked: ", this.state.checked);
         if (this.state.checked === true) {
           $(`#${this.props.starRating}-checkmark`).css(
             "display",
@@ -60,18 +57,10 @@ export default class RatingBar extends React.Component {
   }
 
   render() {
-    console.log(
-      "Rendering RatingBar - ",
-      "rating count: ",
-      this.props.ratingCount,
-      "total reviews: ",
-      this.props.totalReviews
-    );
-    console.log("ProgressBarPct: ", this.state.progressBarPct);
-
     return (
       <div
         className="rating-bar-container"
+        id={this.props.starRating + "-container"}
         onMouseEnter={() =>
           $($(`#${this.props.starRating}-fancy-checkbox`).addClass("checked"))
         }
@@ -86,6 +75,7 @@ export default class RatingBar extends React.Component {
             name={this.props.starRating + "-checkbox"}
             checked={this.state.checked}
             onChange={this.handleChange}
+            disabled={this.state.disabled}
           ></input>
           <i
             className="fancy-checkbox"

@@ -99,7 +99,7 @@ let usernames = [
   "THE_buffalobill",
   "sundancekid",
   "w_earp_1888",
-  "jessejames666",
+  "jessejames",
   "DAVYCROCKETT",
   "sayGeronimo1900",
   "shesCalamityJane45",
@@ -113,9 +113,24 @@ let usernames = [
   "monumentValleyGuy",
   "irobbedabank69",
   "sheriffBob",
-  "woody_AndysToy",
+  "woody",
   "jesseYeehaw97",
-  "runninlikethewindBullseye"
+  "runninlikethewindBullseye",
+  "JDisAstud",
+  "JDisAdisaster",
+  "ish",
+  "collin",
+  "mushroomMan",
+  "natalia",
+  "iluvjetbrains",
+  "zubairDontCare",
+  "zubairLuvsCatz",
+  "zubair_luvs_donuts",
+  "pandasSUCK",
+  "BlazinSaddles",
+  "my_lil_ponies",
+  "pineapple_on_pizza",
+  "IMASENIORNOWWWW"
 ];
 
 const cowboyify = data => {
@@ -221,7 +236,6 @@ const generateRandomReviews = (
 };
 
 const writeReviews = () => {
-    console.log("I'm running!");
   let allReviews = generateRandomReviews(
     100,
     cowboyTitles,
@@ -234,7 +248,7 @@ const writeReviews = () => {
     if (err) {
       throw err;
     }
-    console.log("File written!");
+    console.log("Review data file written!");
   });
 };
 

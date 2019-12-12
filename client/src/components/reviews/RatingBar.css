@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.rating-bar-container.disabled-cursor {
+    cursor: not-allowed; 
+}
+
 .checkbox-container, .star-rating {
     height: 16px;
 }
@@ -48,6 +52,7 @@
     background-image: none;
     background-color: #c5cbd5;
     border-bottom-width: 1px;
+    cursor: default;
 }
 
 .checked {

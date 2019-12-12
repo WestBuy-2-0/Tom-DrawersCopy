@@ -1,8 +1,12 @@
 const express = require("express");
-// const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
+const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
+const writeOverview = require("./dataGenerators/overviewDataGenerator.js");
+const writeSpecs = require("./dataGenerators/specsDataGenerator.js");
 const port = 3333;
 
 // writeReviews.writeReviews();
+// writeOverview.writeOverviewData();
+// writeSpecs.writeSpecs();
 
 const app = express();
 

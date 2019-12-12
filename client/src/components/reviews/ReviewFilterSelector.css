@@ -3,3 +3,31 @@
     position: absolute;
     right: 0;
 }
+
+.sort-options {
+    width: 180px;
+    margin-left: 10px;
+    font-size: 13px;
+    line-height: 19px;
+    padding-left: 17px;
+    color: #040c13;
+    border: 1px solid #c5cbd5;
+    border-radius: 4px;
+    padding: 7px 40px 8px 12px;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: capitalize;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: normal;
+    -webkit-rtl-ordering: logical;
+    background: url(../../assets/down-chevron-sm.png) no-repeat 95%,#fff;
+    background-size: 20px 11px;
+    cursor: default;
+}
