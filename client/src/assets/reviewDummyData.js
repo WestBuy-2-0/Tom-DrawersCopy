@@ -96,11 +96,11 @@ module.exports = {
       product_id: 55,
       review_count: 5,
       avg_rating: 3.4,
-      5: 1,
-      4: 2,
-      3: 1,
-      2: 0,
-      1: 1,
+      five_star: 1,
+      four_star: 2,
+      three_star: 1,
+      two_star: 0,
+      one_star: 1,
       would_recommend_pct: 80
     }
   ]

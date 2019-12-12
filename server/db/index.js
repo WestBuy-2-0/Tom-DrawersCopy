@@ -9,5 +9,5 @@ const pool = new Pool({
 });
 
 module.exports = {
-    query: (qStr, qParams) => pool.query(qStr, qParams)
-}
+  query: (qStr, qParams) => pool.query(qStr, qParams)
+};
