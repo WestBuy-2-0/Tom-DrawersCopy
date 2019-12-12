@@ -12,6 +12,6 @@
   }
 }
 
-fieldset:first-child {
+fieldset div:first-of-type {
     margin-top: 0px;
 }

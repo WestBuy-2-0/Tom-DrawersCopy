@@ -27,7 +27,7 @@ export default class QandA extends React.Component {
           <DrawerHeader isOpen={this.state.open} label="Question & Answer" />
         </Card.Header>
         <Collapse in={this.state.open}>
-          <Card.Body>This is where the product Q&A will go.</Card.Body>
+          <Card.Body><div id="star-placeholder-1"></div></Card.Body>
         </Collapse>
       </Card>
     );

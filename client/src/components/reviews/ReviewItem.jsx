@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import Button from "react-bootstrap/Button";
 import FeatureRatingBar from "./FeatureRatingBar.jsx";
+import VerifiedPurchaseIcon from "./VerifiedPurchaseIcon.jsx";
 
 import styles from "./ReviewItem.css";
 
@@ -36,11 +37,7 @@ const ReviewItem = props => {
           <h4 className="review-title">{props.reviewInfo.title}</h4>
         </div>
         <div className="review-info">
-          <span className="verified-purchase">
-            <i class="far fa-check-circle"></i>
-            Verified Purchase
-          </span>
-          <span className="review-info-divider">|</span>
+          <VerifiedPurchaseIcon isVerified={props.reviewInfo.verified_purchase}/>
           <span className="post-date">
             Posted {submissionDate.toLocaleDateString()}
           </span>
