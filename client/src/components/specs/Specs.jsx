@@ -26,7 +26,7 @@ export default class Specs extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://127.0.0.1:3333/specs/${this.props.productId}`)
+    axios.get(`http://west-buy-drawers.us-east-2.elasticbeanstalk.com/specs/${this.props.productId}`)
     .then(data => {
       console.log(data.data);
       this.setState({ specData: data.data }, () => {

@@ -37,7 +37,7 @@ export default class ReviewDrawer extends React.Component {
   componentDidMount() {
     //query for review data here?
     axios
-      .get(`http://127.0.0.1:3333/reviews/${this.props.productId}`)
+      .get(`http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`)
       .then(data => {
         console.log(data.data);
         this.setState({ reviewData: data.data }, () => {
