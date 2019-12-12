@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import OverviewBody from "./OverviewBody.jsx";
+import axios from "axios";
 
 import overviewDummyData from "../../assets/overviewDummyData.js";
 
@@ -14,11 +15,25 @@ export default class Overview extends React.Component {
     super(props);
 
     this.state = {
-      open: true
-      //cache overview info for given productId here
+      open: true,
+      overviewData: {
+        description: null,
+        features: [],
+        whats_included: []
+      }
     };
 
     this.toggle = this.toggle.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`http://west-buy-drawers.us-east-2.elasticbeanstalk.com/overview/${this.props.productId}`)
+    .then(data => {
+      console.log(data.data);
+      this.setState({ overviewData: data.data }, () => {
+        console.log("overview state updated");
+      });
+    });
   }
 
   toggle() {
@@ -26,8 +41,6 @@ export default class Overview extends React.Component {
       return { open: !state.open };
     });
   }
-
-  //query server/db for Overview data for this.props.productId
 
   render() {
     return (
@@ -37,7 +50,7 @@ export default class Overview extends React.Component {
         </Card.Header>
         <Collapse in={this.state.open}>
           <Card.Body>
-            <OverviewBody overviewData={overviewDummyData}/>
+            <OverviewBody overviewData={this.state.overviewData}/>
           </Card.Body>
         </Collapse>
       </Card>

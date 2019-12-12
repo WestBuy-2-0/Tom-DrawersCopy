@@ -15,7 +15,7 @@ const ReviewItem = props => {
     ? "inline-block"
     : "none";
   const starClasses = ` stars stars-small stars-small-${props.reviewInfo.rating}-0`;
-  const submissionDate = props.reviewInfo.submission_date;
+  const submissionDate = new Date(props.reviewInfo.submission_date);
   const featuresDisplay = props.reviewInfo.rated_features ? "block" : "none";
 
   return (

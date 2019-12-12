@@ -8,17 +8,17 @@ import styles from "./ReviewSummary.css";
 
 const ReviewSummary = props => {
   const ratingCounts = [
-    [5, props.reviewSummaryData[5]],
-    [4, props.reviewSummaryData[4]],
-    [3, props.reviewSummaryData[3]],
-    [2, props.reviewSummaryData[2]],
-    [1, props.reviewSummaryData[1]]
+    [5, props.reviewSummaryData["five_star"]],
+    [4, props.reviewSummaryData["four_star"]],
+    [3, props.reviewSummaryData["three_star"]],
+    [2, props.reviewSummaryData["two_star"]],
+    [1, props.reviewSummaryData["one_star"]]
   ];
 
   return (
     <div className="review-summary-container">
       <RatingSummary
-        avgRating={props.reviewSummaryData.avg_rating}
+        avgRating={props.reviewSummaryData.average_rating}
         reviewCount={props.reviewSummaryData.review_count}
         recPct={props.reviewSummaryData.would_recommend_pct}
       />
