@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes, { string } from "prop-types";
 import OneSpec from "./OneSpec.jsx";
 
-import styles from "./SpecCategoryRow.css";
+// import styles from "./SpecCategoryRow.css";
 
-const KeySpecs = props => {
+const SpecCategoryRow = props => {
   return (
     <div className="specs-content-container">
       <div className="category-title-container">
@@ -19,9 +19,9 @@ const KeySpecs = props => {
   );
 };
 
-KeySpecs.propTypes = {
+SpecCategoryRow.propTypes = {
     category: PropTypes.string,
     specData: PropTypes.array
 }
 
-export default KeySpecs;
+export default SpecCategoryRow;

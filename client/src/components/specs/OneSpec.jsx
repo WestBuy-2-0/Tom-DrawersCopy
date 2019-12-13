@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes, { string } from "prop-types";
 
-import styles from "./OneSpec.css";
+// import styles from "./OneSpec.css";
 
 const OneSpec = props => {
   
