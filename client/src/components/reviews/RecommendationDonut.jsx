@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styles from "./RecommendationDonut.css";
+// import styles from "./RecommendationDonut.css";
 
 const RecommendationDonut = props => {
   const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
-import styles from "./VerifiedPurchaseFilter.css";
 
 export default class VerifiedPurchaseFilter extends React.Component {
   constructor(props) {
@@ -57,8 +56,4 @@ export default class VerifiedPurchaseFilter extends React.Component {
       </div>
     );
   }
-}
-
-// VerifiedPurchaseFilter.propTypes = {
-
-// }
+};

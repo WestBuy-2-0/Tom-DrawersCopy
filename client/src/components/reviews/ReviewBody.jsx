@@ -2,13 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewSummary from "./ReviewSummary.jsx";
 import ReviewList from "./ReviewList.jsx";
-import ReviewFilters from "./ReviewFilters.jsx";
+import VerifiedPurchaseFilter from "./VerifiedPurchaseFilter.jsx";
+import ReviewFilterSelector from "./ReviewFilterSelector.jsx";
+
+import "./ReviewBody.scss";
 
 const ReviewBody = props => {
   return (
-    <div className="drawer-content">
+    <div className="drawer-content" id="review-drawer-content">
       <ReviewSummary reviewSummaryData={props.reviewSummaryData} />
-      <ReviewFilters />
+      <div className="review-filters-container">
+        <VerifiedPurchaseFilter />
+        <ReviewFilterSelector />
+      </div>
       <ReviewList
         reviewData={props.reviewData}
         totalReviews={props.reviewSummaryData.review_count}

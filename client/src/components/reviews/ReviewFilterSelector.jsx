@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./ReviewFilterSelector.css";
 
 export default class ReviewFilterSelector extends React.Component {
   constructor(props) {

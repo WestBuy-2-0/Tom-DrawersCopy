@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styles from "./RatingSummary.css";
+// import styles from "./RatingSummary.css";
 
 const RatingSummary = props => {
   const rating = props.avgRating;
@@ -12,7 +12,7 @@ const RatingSummary = props => {
   return (
     <div className="rating-summary-container">
       <h3 className="customer-rating-heading">Customer Rating</h3>
-      <span className="overall-rating"><span className="inner-overall-rating">{props.avgRating}</span></span>
+      <span className="overall-rating"><span className="inner-overall-rating">{rating.toFixed(1)}</span></span>
       <div className="stars-and-ratings">
         <i className={starClasses}></i>
         <span className="total-reviews">({props.reviewCount} Reviews)</span>

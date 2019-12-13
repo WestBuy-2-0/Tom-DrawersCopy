@@ -41,8 +41,6 @@ export default class Specs extends React.Component {
     });
   }
 
-  //query server/db for Overview data for this.props.productId
-
   render() {
     return (
       <Card>

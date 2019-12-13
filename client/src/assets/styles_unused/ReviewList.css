@@ -1,0 +1,39 @@
+.review-list-container {
+    border-top: 1px solid #c5cbd5;
+}
+
+.review-list-info {
+    margin-top: 20px;
+}
+
+.see-all-reviews-btn-container {
+    margin: 20px 0 40px 0;
+    text-align: center;
+}
+
+.show-more-btn, .write-review-btn {
+    width: 308px;
+    border: 1px solid #0046be;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.show-more-btn {
+    color: #0046be;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.write-review-btn {
+    color: #fff;
+    background-color: #0046be;
+    margin: 20px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.show-more-btn:hover, .write-review-btn:hover {
+    border: 1px solid #001E73;
+    background-color: #001E73;
+    color: #fff;
+}
+
