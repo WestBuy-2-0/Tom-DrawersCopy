@@ -25,7 +25,6 @@ export default class Drawers extends React.Component {
         <Overview productId={this.state.productId} />
         <Specs productId={this.state.productId} />
         <ReviewDrawer productId={this.state.productId} />
-        <QandA productId={this.state.productId} />
       </div>
     );
   }

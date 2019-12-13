@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styles from "./OneIncludedItem.css";
+// import styles from "./OneIncludedItem.css";
 
 const OneIncludedItem = props => {
   return (

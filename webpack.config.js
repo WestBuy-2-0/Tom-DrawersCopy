@@ -13,8 +13,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
+        test: /\.css$|\.s[ac]ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
@@ -25,7 +25,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [new StylableWebpackPlugin()],
   output: {
     filename: "bundle.js",
     path: __dirname + "/client/dist"
