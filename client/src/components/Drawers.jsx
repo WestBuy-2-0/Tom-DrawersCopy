@@ -14,7 +14,7 @@ export default class Drawers extends React.Component {
     super(props);
 
     this.state = {
-      productId: 12
+      productId: 42
     };
 
   }

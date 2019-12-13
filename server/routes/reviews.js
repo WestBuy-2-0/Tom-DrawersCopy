@@ -23,4 +23,4 @@ router.get("/:id", async (req, res) => {
 
     const reviewData = {count: count.rows[0].count, reviews: reviews.rows, reviewSummaryData: reviewSummaryData.rows[0]}
     res.send(reviewData);
-})
+});
