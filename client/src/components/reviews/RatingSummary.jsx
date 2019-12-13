@@ -17,7 +17,7 @@ const RatingSummary = props => {
         <i className={starClasses}></i>
         <span className="total-reviews">({props.reviewCount} Reviews)</span>
       </div>
-      {/* <div className="recommend-pct"><strong>{props.recPct}%</strong> would recommend to a friend.</div> */}
+    
       <a href="#" className="all-reviews-link">See all customer reviews</a>
     </div>
   );

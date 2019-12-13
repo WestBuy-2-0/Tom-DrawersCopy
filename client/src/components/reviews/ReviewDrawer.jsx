@@ -32,20 +32,34 @@ export default class ReviewDrawer extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.getMoreReviews = this.getMoreReviews.bind(this);
+    this.getFilteredReviews = this.getFilteredReviews.bind(this);
+    this.getVPReviews = this.getVPReviews.bind(this);
   }
 
   componentDidMount() {
     //query for review data here?
     axios
-      .get(`http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`)
+      //http://west-buy-drawers.us-east-2.elasticbeanstalk.com
+      .get(`/reviews/${this.props.productId}`)
       .then(data => {
         console.log(data.data);
-        this.setState({ reviewData: data.data }, () => {
-          console.log("review state updated");
-          console.log(this.state.reviewData.reviewSummaryData.review_count);
-        });
+        if (data.data.count > 0) {
+          this.setState({ reviewData: data.data }, () => {
+            console.log("review state updated");
+            console.log(this.state.reviewData.reviewSummaryData.review_count);
+          });
+        }
       });
   }
+
+  getMoreReviews() {}
+
+  getFilteredReviews() {
+    let ratings = [...arguments];
+  }
+
+  getVPReviews() {}
 
   toggle() {
     this.setState(state => {
