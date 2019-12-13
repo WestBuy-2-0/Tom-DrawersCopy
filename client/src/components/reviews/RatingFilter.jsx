@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import RatingBar from "./RatingBar.jsx";
 
-import styles from "./RatingFilter.css";
+// import styles from "./RatingFilter.css";
 
 const RatingFilter = props => {
     return (

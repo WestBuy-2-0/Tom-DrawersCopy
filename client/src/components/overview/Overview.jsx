@@ -8,7 +8,7 @@ import axios from "axios";
 
 import overviewDummyData from "../../assets/overviewDummyData.js";
 
-import styles from './Overview.css';
+// import styles from './Overview.css';
 
 export default class Overview extends React.Component {
   constructor(props) {

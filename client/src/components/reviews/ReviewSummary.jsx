@@ -4,7 +4,7 @@ import RatingSummary from "./RatingSummary.jsx";
 import RatingFilter from "./RatingFilter.jsx";
 import RecommendationDonut from "./RecommendationDonut.jsx";
 
-import styles from "./ReviewSummary.css";
+// import styles from "./ReviewSummary.css";
 
 const ReviewSummary = props => {
   const ratingCounts = [

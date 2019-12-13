@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import ReviewItem from "./ReviewItem.jsx";
 import Button from "react-bootstrap/Button";
 
-import styles from "./ReviewList.css";
-
 const ReviewList = props => {
   return (
     <div className="review-list-container">

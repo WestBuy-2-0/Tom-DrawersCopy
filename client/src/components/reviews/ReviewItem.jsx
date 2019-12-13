@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import FeatureRatingBar from "./FeatureRatingBar.jsx";
 import VerifiedPurchaseIcon from "./VerifiedPurchaseIcon.jsx";
 
-import styles from "./ReviewItem.css";
+// import styles from "./ReviewItem.css";
 
 const ReviewItem = props => {
   const wouldRecommendText = props.reviewInfo.would_recommend

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 
-import "./RatingBar.css";
+// import "./RatingBar.css";
 import { thisExpression } from "@babel/types";
 
 export default class RatingBar extends React.Component {

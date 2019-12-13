@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styles from "./FeatureRatingBar.css";
-
 const FeatureRatingBar = props => {
   const className = `${props.feature}-rating-group`;
   const ratingTileClasses = [];

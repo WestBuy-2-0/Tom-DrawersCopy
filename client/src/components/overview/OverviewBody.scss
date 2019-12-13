@@ -1,0 +1,107 @@
+#overview-drawer-content {
+  * {
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: normal;
+  }
+
+  .body-copy {
+    font-size: 13px;
+    line-height: normal;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .overview-content-container {
+    display: flex;
+  }
+
+  .overview-content-container:first-child {
+    margin-top: 24px;
+  }
+
+  .overview-content-container:last-child {
+    margin-bottom: 24px;
+  }
+
+  .description-heading,
+  .features-heading,
+  .whats-included-heading {
+    width: 25%;
+    align-items: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .description-copy,
+  .features-body-container,
+  .whats-included-body-container {
+    width: 75%;
+  }
+
+  .whats-included-list-item {
+    list-style: none;
+    padding-bottom: 10px;
+  }
+
+  h4 {
+    padding-top: 11px;
+    padding-bottom: 6px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 9px;
+  }
+
+  li.bold {
+    font-weight: bold;
+  }
+
+  .features-list-row p {
+    margin-bottom: 9px;
+  }
+
+  .whats-included-list-item {
+    list-style: none;
+    padding-bottom: 10px;
+  }
+
+  .spacer-row {
+    display: flex;
+  }
+
+  .spacer-row-3,
+  .spacer-row-9 {
+    position: relative;
+    min-height: 1px;
+    margin-left: -10px;
+  }
+
+  .spacer-row-9 {
+    flex: 3;
+  }
+
+  .spacer-row-3 {
+    flex: 1;
+  }
+
+  .spacer-row-1 {
+    flex: 1;
+  }
+
+  .r-padding-bottom {
+    padding-bottom: 24px;
+  }
+
+  .r-margin-bottom {
+    margin-bottom: 24px;
+  }
+
+  .r-border-bottom {
+    border-bottom: 1px solid #c5cbd5;
+  }
+}

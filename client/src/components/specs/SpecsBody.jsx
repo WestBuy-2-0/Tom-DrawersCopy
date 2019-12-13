@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import Card from "react-bootstrap/Card";
 import SpecCategoryRow from "./SpecCategoryRow.jsx";
-import "./SpecsBody.css";
+import "./SpecsBody.scss";
 
 const SpecsBody = props => {
     return (
-      <div className="drawer-content">
+      <div className="drawer-content" id="specs-drawer-content">
         <SpecCategoryRow
           category="Key Specs"
           specData={props.specsData.key_specs}

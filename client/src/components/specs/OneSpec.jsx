@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes, { string } from "prop-types";
 
-import styles from "./OneSpec.css";
+// import styles from "./OneSpec.css";
 
 const OneSpec = props => {
   
@@ -70,7 +70,7 @@ const highlightIcon = () => {
             {/* <div className="modal-background"></div> */}
             <div className="modal-content" onClick={closeModal}>
               <div className="modal-container">
-                <div className="modal-box" onClick={openModal}>
+                <div className="modal-box">
                   <div className="modal-copy">
                     <div className="modal-title">
                       {props.specData.spec_name}

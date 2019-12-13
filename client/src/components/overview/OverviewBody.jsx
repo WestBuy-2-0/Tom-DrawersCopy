@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import OneFeature from "./OneFeature.jsx";
 import OneIncludedItem from "./OneIncludedItem.jsx";
 import Card from "react-bootstrap/Card";
-import styles from "./OverviewBody.css";
+import "./OverviewBody.scss";
 
 const OverviewBody = props => {
 
     return (
-      <div className="drawer-content">
+      <div className="drawer-content" id="overview-drawer-content">
         <div className="overview-content-container product-description-container">
           <h3 className="description-heading">Description</h3>
           <div className="description-copy">
