@@ -26,7 +26,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: "bundle.js",
+    filename: "accordion-drawers-bundle.js",
     path: __dirname + "/client/dist"
   }
 };
