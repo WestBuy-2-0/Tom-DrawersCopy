@@ -1,6 +1,6 @@
 import React from "react";
 import Drawers from "./Drawers.jsx";
-import styles from './App.css';
+import './App.scss';
 
 export default class App extends React.Component {
   constructor(props) {

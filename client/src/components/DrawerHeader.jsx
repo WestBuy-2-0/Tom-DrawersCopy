@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import RatingHeader from "./reviews/RatingHeader.jsx";
+import RatingHeader from "./RatingHeader.jsx";
 
 const DrawerHeader = props => {
   const upCaretPath =

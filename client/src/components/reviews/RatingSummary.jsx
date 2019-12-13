@@ -12,7 +12,7 @@ const RatingSummary = props => {
   return (
     <div className="rating-summary-container">
       <h3 className="customer-rating-heading">Customer Rating</h3>
-      <span className="overall-rating"><span className="inner-overall-rating">{rating.toFixed(1)}</span></span>
+      <span className="overall-rating">{rating.toFixed(1)}</span>
       <div className="stars-and-ratings">
         <i className={starClasses}></i>
         <span className="total-reviews">({props.reviewCount} Reviews)</span>

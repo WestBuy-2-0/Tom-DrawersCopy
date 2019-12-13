@@ -1,4 +1,10 @@
 #specs-drawer-content {
+    * {
+        box-sizing: border-box;
+        font-size: 13px;
+        line-height: normal;
+      }
+      
     h3 {
         margin: 0;
         font-size: 20px;
