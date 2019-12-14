@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes, { string } from "prop-types";
+import $ from "jquery";
 
 // import styles from "./OneSpec.css";
 

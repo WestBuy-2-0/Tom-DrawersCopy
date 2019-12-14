@@ -20,11 +20,13 @@ export default class Drawers extends React.Component {
     /* Reads current pages URL and gets product id */
     const getProductID = () => {
       let productUrl = window.location.href;
-      let { pathname } = new URL(productUrl);
-      return pathname.split("/")[2];
+      let urlBits = productUrl.split("/");
+      // return pathname.split("/")[2];
+      console.log("URL BITS! ", urlBits[urlBits.length - 2]);
+      return urlBits[urlBits.length - 2];
     };
-    let productId = Number(getProductID());
-
+    let productId = parseInt(getProductID());
+    console.log("new product ID parsed: ", productId);
     this.setState({productId}, () => {
       console.log("Product ID updated in state: ", this.state.productId)
     });
