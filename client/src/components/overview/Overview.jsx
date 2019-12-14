@@ -6,8 +6,6 @@ import DrawerHeader from "../DrawerHeader.jsx";
 import OverviewBody from "./OverviewBody.jsx";
 import axios from "axios";
 
-import overviewDummyData from "../../assets/overviewDummyData.js";
-
 // import styles from './Overview.css';
 
 export default class Overview extends React.Component {
@@ -27,13 +25,25 @@ export default class Overview extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/overview/${this.props.productId}`)
-    .then(data => {
-      console.log(data.data);
-      this.setState({ overviewData: data.data }, () => {
-        console.log("overview state updated");
+    axios
+      .get(
+        `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/overview/${this.props.productId}`
+      )
+      .then(data => {
+        this.setState({ overviewData: data.data });
       });
-    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productId != this.props.productId) {
+      axios
+        .get(
+          `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/overview/${this.props.productId}`
+        )
+        .then(data => {
+          this.setState({ overviewData: data.data });
+        });
+    }
   }
 
   toggle() {
@@ -50,7 +60,7 @@ export default class Overview extends React.Component {
         </Card.Header>
         <Collapse in={this.state.open}>
           <Card.Body>
-            <OverviewBody overviewData={this.state.overviewData}/>
+            <OverviewBody overviewData={this.state.overviewData} />
           </Card.Body>
         </Collapse>
       </Card>
@@ -60,4 +70,4 @@ export default class Overview extends React.Component {
 
 Overview.propTypes = {
   productId: PropTypes.number
-}
+};

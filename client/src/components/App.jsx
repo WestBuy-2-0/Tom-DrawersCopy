@@ -1,13 +1,12 @@
 import React from "react";
 import Drawers from "./Drawers.jsx";
-import './App.scss';
+import '../assets/styles/App.scss';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      productId: 1
     };
   }
 

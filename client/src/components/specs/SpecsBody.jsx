@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import Card from "react-bootstrap/Card";
 import SpecCategoryRow from "./SpecCategoryRow.jsx";
-import "./SpecsBody.scss";
+import "../../assets/styles/SpecsBody.scss";
 
 const SpecsBody = props => {
     return (

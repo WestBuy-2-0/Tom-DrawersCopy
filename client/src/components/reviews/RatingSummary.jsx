@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 const RatingSummary = props => {
   const rating = props.avgRating;
-  console.log("Rating summary rating: ", rating);
   const starClasses = `stars stars-medium stars-medium-${
     rating.toFixed(1)[0]
   }-${rating.toFixed(1)[2]}`;

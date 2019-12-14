@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OneFeature from "./OneFeature.jsx";
 import OneIncludedItem from "./OneIncludedItem.jsx";
 import Card from "react-bootstrap/Card";
-import "./OverviewBody.scss";
+import "../../assets/styles/OverviewBody.scss";
 
 const OverviewBody = props => {
 

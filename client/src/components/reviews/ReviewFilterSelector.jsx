@@ -13,9 +13,7 @@ export default class ReviewFilterSelector extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ selected: e.currentTarget.value }, () => {
-      console.log(this.state.selected);
-    });
+    this.setState({ selected: e.currentTarget.value });
   }
 
   render() {

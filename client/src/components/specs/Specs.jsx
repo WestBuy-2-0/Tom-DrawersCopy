@@ -5,7 +5,6 @@ import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import SpecsBody from "./SpecsBody.jsx";
 import axios from "axios";
-import specsDummyData from "../../assets/specsDummyData.js";
 
 export default class Specs extends React.Component {
   constructor(props) {
@@ -26,13 +25,25 @@ export default class Specs extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/specs/${this.props.productId}`)
-    .then(data => {
-      console.log(data.data);
-      this.setState({ specData: data.data }, () => {
-        console.log("Specs state updated");
+    axios
+      .get(
+        `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/specs/${this.props.productId}`
+      )
+      .then(data => {
+        this.setState({ specData: data.data });
       });
-    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productId != this.props.productId) {
+      axios
+        .get(
+          `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/specs/${this.props.productId}`
+        )
+        .then(data => {
+          this.setState({ specData: data.data });
+        });
+    }
   }
 
   toggle() {
@@ -59,4 +70,4 @@ export default class Specs extends React.Component {
 
 Specs.propTypes = {
   productId: PropTypes.number
-}
+};

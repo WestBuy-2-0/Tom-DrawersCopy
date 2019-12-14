@@ -5,7 +5,7 @@ import ReviewList from "./ReviewList.jsx";
 import VerifiedPurchaseFilter from "./VerifiedPurchaseFilter.jsx";
 import ReviewFilterSelector from "./ReviewFilterSelector.jsx";
 
-import "./ReviewBody.scss";
+import "../../assets/styles/ReviewBody.scss";
 
 const ReviewBody = props => {
   return (

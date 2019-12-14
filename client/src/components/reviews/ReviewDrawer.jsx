@@ -5,7 +5,6 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import DrawerHeader from "../DrawerHeader.jsx";
 import ReviewBody from "./ReviewBody.jsx";
-import dummyReviews from "../../assets/reviewDummyData.js";
 import axios from "axios";
 
 export default class ReviewDrawer extends React.Component {
@@ -41,16 +40,29 @@ export default class ReviewDrawer extends React.Component {
     //query for review data here?
     axios
       //http://west-buy-drawers.us-east-2.elasticbeanstalk.com
-      .get(`/reviews/${this.props.productId}`)
+      .get(
+        `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
+      )
       .then(data => {
-        console.log(data.data);
         if (data.data.count > 0) {
-          this.setState({ reviewData: data.data }, () => {
-            console.log("review state updated");
-            console.log(this.state.reviewData.reviewSummaryData.review_count);
-          });
+          this.setState({ reviewData: data.data });
         }
       });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productId != this.props.productId) {
+      axios
+        //http://west-buy-drawers.us-east-2.elasticbeanstalk.com
+        .get(
+          `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
+        )
+        .then(data => {
+          if (data.data.count > 0) {
+            this.setState({ reviewData: data.data });
+          }
+        });
+    }
   }
 
   getMoreReviews() {}
@@ -68,7 +80,6 @@ export default class ReviewDrawer extends React.Component {
   }
 
   render() {
-    console.log("Rendering ReviewDrawer");
     return (
       <Card>
         <Card.Header onClick={this.toggle}>

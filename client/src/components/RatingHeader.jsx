@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 //styles are necessary to render the correct star rating in the stars <i> tag below
 
-import "./RatingHeader.scss";
+import "../assets/styles/RatingHeader.scss";
 
 //The "stars-small" component size must stay 90x18px
 //The stars-bby.png background image asset is required to render star ratings - customize local path in Reviews.css

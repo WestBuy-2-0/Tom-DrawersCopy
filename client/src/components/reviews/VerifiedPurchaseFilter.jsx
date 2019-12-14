@@ -32,7 +32,6 @@ export default class VerifiedPurchaseFilter extends React.Component {
   }
 
   render() {
-    console.log("Checked? ", this.state.checked);
     return (
       <div className="vp-filter-container">
         <div className="switch-label">
