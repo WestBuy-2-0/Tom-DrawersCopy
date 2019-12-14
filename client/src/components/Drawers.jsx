@@ -19,7 +19,7 @@ export default class Drawers extends React.Component {
   componentDidMount() {
     /* Reads current pages URL and gets product id */
     const getProductID = () => {
-      let productUrl = "http://www.westbuy.org/products/45/";
+      let productUrl = window.location.href;
       let { pathname } = new URL(productUrl);
       return pathname.split("/")[2];
     };
