@@ -23,9 +23,11 @@ export default class VerifiedPurchaseFilter extends React.Component {
         if (this.state.checked) {
           $(".slider").addClass("checked");
           $(".slider-toggle").addClass("checked");
+          this.props.getVPReviews();
         } else {
           $(".slider").removeClass("checked");
           $(".slider-toggle").removeClass("checked");
+          //add truncateReviews call?
         }
       }
     );
@@ -56,3 +58,7 @@ export default class VerifiedPurchaseFilter extends React.Component {
     );
   }
 };
+
+VerifiedPurchaseFilter.propTypes = {
+  getVPReviews: PropTypes.func
+}

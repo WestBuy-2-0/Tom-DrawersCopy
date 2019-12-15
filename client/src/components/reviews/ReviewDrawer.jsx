@@ -28,7 +28,16 @@ export default class ReviewDrawer extends React.Component {
           would_recommend_pct: 0
         }
       },
-      renderedReviews: []
+      filters: {
+        vp: false,
+        five_star: false,
+        four_star: false,
+        three_star: false,
+        two_star: false,
+        one_star: false
+      },
+      renderedReviews: [],
+      vpCount: 0
     };
 
     this.toggle = this.toggle.bind(this);
@@ -47,7 +56,7 @@ export default class ReviewDrawer extends React.Component {
       .then(data => {
         if (data.data.count > 0) {
           this.setState({ reviewData: data.data }, () => {
-            this.setState({renderedReviews: this.truncateReviews(8)})
+            this.setState({ renderedReviews: this.truncateReviews(8) });
           });
         }
       });
@@ -62,29 +71,47 @@ export default class ReviewDrawer extends React.Component {
         .then(data => {
           if (data.data.count > 0) {
             this.setState({ reviewData: data.data }, () => {
-              this.setState({renderedReviews: this.truncateReviews(8)})
+              this.setState({ renderedReviews: this.truncateReviews(8) });
             });
           }
         });
     }
   }
 
-  truncateReviews(num) {
-    let reviews = this.state.reviewData.reviews.slice();
+  truncateReviews(num, r = this.state.reviewData.reviews) {
+    let reviews = r.slice();
     return reviews.filter((review, index) => {
       return index < num;
-    })
+    });
   }
 
-  extendReviews(e) {
-    this.setState({renderedReviews: this.truncateReviews(16)});
+  extendReviews() {
+    this.setState({ renderedReviews: this.truncateReviews(16) });
   }
 
   getFilteredReviews() {
     let ratings = [...arguments];
   }
 
-  getVPReviews() {}
+  getVPReviews() {
+    let VPreviews = this.state.reviewData.reviews.filter((review, index) => {
+      return review.verified_purchase;
+    });
+    let vpCount = VPreviews.length;
+    this.setState(
+      state => {
+        let filters = {...this.state.filters};
+        filters.vp = true;
+        return { renderedReviews: this.truncateReviews(8, VPreviews), vpCount, filters };
+      },
+      () => {
+        console.log(
+          "After VP Reviews runs, this is state vpCount: ",
+          this.state.vpCount
+        );
+      }
+    );
+  }
 
   toggle() {
     this.setState(state => {
@@ -107,10 +134,13 @@ export default class ReviewDrawer extends React.Component {
         <Collapse in={this.state.open}>
           <Card.Body>
             <ReviewBody
-              productId={55}
+              productId={this.props.productId}
               reviewSummaryData={this.state.reviewData.reviewSummaryData}
               reviewData={this.state.renderedReviews}
+              filters={this.state.filters}
+              vpCount={this.state.vpCount}
               extendReviews={this.extendReviews}
+              getVPReviews={this.getVPReviews}
             />
           </Card.Body>
         </Collapse>

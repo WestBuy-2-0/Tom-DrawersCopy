@@ -8,22 +8,55 @@ export default class ReviewList extends React.Component {
     super(props);
 
     this.state = {
-      showMoreDisplay: "inline-block",
-      seeAllDisplay: "none"
+      extended: false
     };
+
+    // this.totalReviews = this.props.filters.vp
+    //   ? this.props.vpCount
+    //   : this.props.totalReviews;
 
     this.showMore = this.showMore.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.reviewData.length <= 8) {
-      this.setState({showMoreDisplay: "none", seeAllDisplay: "inline-block"});
+    // this.setState({ totalReviews: this.props.totalReviews }, () => {
+    //   console.log("ReviewList Total Reviews state on mounting: ", this.state.totalReviews)
+    console.log("In reviewList, this is vpCount: ", this.props.vpCount)
+    if (this.props.totalReviews <= 8) {
+      this.setState({
+        extended: false
+      });
     }
+    // });
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("ReviewList component updating");
+    console.log("After ReviewList updates, this is vpCount: ", this.props.vpCount);
+    console.log("After ReviewList updates, this is vp filter: ", this.props.filters.vp);
+
+  
+    // if (prevProps.productId !== this.props.productId) {
+    //   this.setState((state, props) => {
+    //     console.log("ReviewList Total Reviews state on updating: ", this.state.totalReviews)
+    //     let totalReviews = props.filters.vp
+    //       ? props.vpCount
+    //       : props.totalReviews;
+    //     return { totalReviews };
+    //   });
+    // }
+    // this.totalReviews = this.props.filters.vp
+    //   ? this.props.vpCount
+    //   : this.props.totalReviews;
   }
 
   showMore() {
     this.props.extendReviews();
-    this.setState({showMoreDisplay: "none", seeAllDisplay: "inline-block"});
+    this.setState({
+      extended: true,
+      showMoreDisplay: "none",
+      seeAllDisplay: "inline-block"
+    });
   }
 
   render() {
@@ -31,7 +64,7 @@ export default class ReviewList extends React.Component {
       <div className="review-list-container">
         <div className="review-list-info">
           Showing <strong>1-{this.props.reviewData.length}</strong> of{" "}
-          {this.props.totalReviews} reviews
+          {this.props.filters.vp ? this.props.vpCount : this.props.totalReviews} reviews
         </div>
         <ul className="review-list">
           {this.props.reviewData.map((review, index) => (
@@ -42,7 +75,7 @@ export default class ReviewList extends React.Component {
           <Button
             variant="outline-primary"
             className="show-more-btn"
-            style={{"display": this.state.showMoreDisplay}}
+            style={{ display: this.state.extended ? "none" : "inline-block" }}
             onClick={this.showMore}
           >
             Show More
@@ -50,7 +83,7 @@ export default class ReviewList extends React.Component {
           <Button
             variant="outline-primary"
             className="show-more-btn"
-            style={{"display": this.state.seeAllDisplay}}
+            style={{ display: this.state.extended ? "inline-block" : "none" }}
           >
             See All Customer Reviews
           </Button>
@@ -64,7 +97,10 @@ export default class ReviewList extends React.Component {
 }
 
 ReviewList.propTypes = {
+  productId: PropTypes.number,
   reviewData: PropTypes.array,
   totalReviews: PropTypes.number,
-  extendReviews: PropTypes.func
+  extendReviews: PropTypes.func,
+  filters: PropTypes.object,
+  vpCount: PropTypes.number
 };

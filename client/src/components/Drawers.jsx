@@ -12,24 +12,24 @@ export default class Drawers extends React.Component {
     super(props);
 
     this.state = {
-      productId: 93
+      productId: 10
     };
   }
 
   componentDidMount() {
     /* Reads current pages URL and gets product id */
-    const getProductID = () => {
-      let productUrl = window.location.href;
-      let urlBits = productUrl.split("/");
-      // return pathname.split("/")[2];
-      console.log("URL BITS! ", urlBits[urlBits.length - 2]);
-      return urlBits[urlBits.length - 2];
-    };
-    let productId = parseInt(getProductID());
-    console.log("new product ID parsed: ", productId);
-    this.setState({productId}, () => {
-      console.log("Product ID updated in state: ", this.state.productId)
-    });
+    // const getProductID = () => {
+    //   let productUrl = window.location.href;
+    //   let urlBits = productUrl.split("/");
+    //   // return pathname.split("/")[2];
+    //   console.log("URL BITS! ", urlBits[urlBits.length - 2]);
+    //   return urlBits[urlBits.length - 2];
+    // };
+    // let productId = parseInt(getProductID());
+    // console.log("new product ID parsed: ", productId);
+    // this.setState({productId}, () => {
+    //   console.log("Product ID updated in state: ", this.state.productId)
+    // });
   }
 
   render() {
