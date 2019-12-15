@@ -15,6 +15,12 @@ export default class ReviewList extends React.Component {
     this.showMore = this.showMore.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.reviewData.length <= 8) {
+      this.setState({showMoreDisplay: "none", seeAllDisplay: "inline-block"});
+    }
+  }
+
   showMore() {
     this.props.extendReviews();
     this.setState({showMoreDisplay: "none", seeAllDisplay: "inline-block"});
