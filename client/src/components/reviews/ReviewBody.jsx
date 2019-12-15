@@ -18,6 +18,7 @@ const ReviewBody = props => {
       <ReviewList
         reviewData={props.reviewData}
         totalReviews={props.reviewSummaryData.review_count}
+        extendReviews={props.extendReviews}
       />
     </div>
   );
@@ -26,7 +27,8 @@ const ReviewBody = props => {
 ReviewBody.propTypes = {
   productId: PropTypes.number,
   reviewSummaryData: PropTypes.object,
-  reviewData: PropTypes.array
+  reviewData: PropTypes.array,
+  extendReviews: PropTypes.func
 };
 
 export default ReviewBody;

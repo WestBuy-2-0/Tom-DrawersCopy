@@ -27,25 +27,28 @@ export default class ReviewDrawer extends React.Component {
           one_star: 0,
           would_recommend_pct: 0
         }
-      }
+      },
+      renderedReviews: []
     };
 
     this.toggle = this.toggle.bind(this);
-    this.getMoreReviews = this.getMoreReviews.bind(this);
+    this.truncateReviews = this.truncateReviews.bind(this);
+    this.extendReviews = this.extendReviews.bind(this);
     this.getFilteredReviews = this.getFilteredReviews.bind(this);
     this.getVPReviews = this.getVPReviews.bind(this);
   }
 
   componentDidMount() {
-    //query for review data here?
+    //query for review data here
     axios
-      //http://west-buy-drawers.us-east-2.elasticbeanstalk.com
       .get(
         `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
       )
       .then(data => {
         if (data.data.count > 0) {
-          this.setState({ reviewData: data.data });
+          this.setState({ reviewData: data.data }, () => {
+            this.setState({renderedReviews: this.truncateReviews(8)})
+          });
         }
       });
   }
@@ -53,19 +56,29 @@ export default class ReviewDrawer extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.productId != this.props.productId) {
       axios
-        //http://west-buy-drawers.us-east-2.elasticbeanstalk.com
         .get(
           `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
         )
         .then(data => {
           if (data.data.count > 0) {
-            this.setState({ reviewData: data.data });
+            this.setState({ reviewData: data.data }, () => {
+              this.setState({renderedReviews: this.truncateReviews(8)})
+            });
           }
         });
     }
   }
 
-  getMoreReviews() {}
+  truncateReviews(num) {
+    let reviews = this.state.reviewData.reviews.slice();
+    return reviews.filter((review, index) => {
+      return index < num;
+    })
+  }
+
+  extendReviews(e) {
+    this.setState({renderedReviews: this.truncateReviews(16)});
+  }
 
   getFilteredReviews() {
     let ratings = [...arguments];
@@ -96,7 +109,8 @@ export default class ReviewDrawer extends React.Component {
             <ReviewBody
               productId={55}
               reviewSummaryData={this.state.reviewData.reviewSummaryData}
-              reviewData={this.state.reviewData.reviews}
+              reviewData={this.state.renderedReviews}
+              extendReviews={this.extendReviews}
             />
           </Card.Body>
         </Collapse>
