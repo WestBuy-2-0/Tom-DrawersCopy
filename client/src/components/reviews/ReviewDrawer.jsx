@@ -45,6 +45,7 @@ export default class ReviewDrawer extends React.Component {
     this.extendReviews = this.extendReviews.bind(this);
     this.getFilteredReviews = this.getFilteredReviews.bind(this);
     this.getVPReviews = this.getVPReviews.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   componentDidMount() {
@@ -100,17 +101,22 @@ export default class ReviewDrawer extends React.Component {
     let vpCount = VPreviews.length;
     this.setState(
       state => {
-        let filters = {...this.state.filters};
+        let filters = { ...this.state.filters };
         filters.vp = true;
-        return { renderedReviews: this.truncateReviews(8, VPreviews), vpCount, filters };
-      },
-      () => {
-        console.log(
-          "After VP Reviews runs, this is state vpCount: ",
-          this.state.vpCount
-        );
+        return {
+          renderedReviews: this.truncateReviews(8, VPreviews),
+          vpCount,
+          filters
+        };
       }
     );
+  }
+
+  removeFilter() {
+    let filtersToRemove = [...arguments];
+    let filters = {...this.state.filters};
+    filtersToRemove.forEach(filter => filters[filter] = false);
+    this.setState({ renderedReviews: this.truncateReviews(8), filters });
   }
 
   toggle() {
@@ -141,6 +147,7 @@ export default class ReviewDrawer extends React.Component {
               vpCount={this.state.vpCount}
               extendReviews={this.extendReviews}
               getVPReviews={this.getVPReviews}
+              removeFilter={this.removeFilter}
             />
           </Card.Body>
         </Collapse>

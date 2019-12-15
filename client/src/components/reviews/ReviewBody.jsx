@@ -13,7 +13,7 @@ const ReviewBody = props => {
     <div className="drawer-content" id="review-drawer-content">
       <ReviewSummary reviewSummaryData={props.reviewSummaryData} />
       <div className="review-filters-container">
-        <VerifiedPurchaseFilter getVPReviews={props.getVPReviews} />
+        <VerifiedPurchaseFilter getVPReviews={props.getVPReviews} removeFilter={props.removeFilter} />
         <ReviewFilterSelector />
       </div>
       <ReviewList
@@ -35,7 +35,8 @@ ReviewBody.propTypes = {
   extendReviews: PropTypes.func,
   getVPReviews: PropTypes.func,
   filters: PropTypes.object,
-  vpCount: PropTypes.number
+  vpCount: PropTypes.number,
+  removeFilter: PropTypes.func
 };
 
 export default ReviewBody;

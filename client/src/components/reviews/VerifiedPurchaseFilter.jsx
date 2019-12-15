@@ -27,6 +27,7 @@ export default class VerifiedPurchaseFilter extends React.Component {
         } else {
           $(".slider").removeClass("checked");
           $(".slider-toggle").removeClass("checked");
+          this.props.removeFilter("vp");
           //add truncateReviews call?
         }
       }
