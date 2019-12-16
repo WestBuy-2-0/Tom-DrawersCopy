@@ -11,7 +11,7 @@ const ReviewBody = props => {
   console.log("In reviewBody, this is vpCount: ", props.vpCount);
   return (
     <div className="drawer-content" id="review-drawer-content">
-      <ReviewSummary reviewSummaryData={props.reviewSummaryData} />
+      <ReviewSummary reviewSummaryData={props.reviewSummaryData} toggleRatingFilter={props.toggleRatingFilter} />
       <div className="review-filters-container">
         <VerifiedPurchaseFilter
           renderVPReviews={props.renderVPReviews}
@@ -27,6 +27,8 @@ const ReviewBody = props => {
         extendReviews={props.extendReviews}
         filters={props.filters}
         extended={props.extended}
+        ratingFiltersActive={props.ratingFiltersActive}
+        filteredCount={props.filteredCount}
       />
     </div>
   );
@@ -41,7 +43,10 @@ ReviewBody.propTypes = {
   filters: PropTypes.object,
   vpCount: PropTypes.number,
   removeFilter: PropTypes.func,
-  extended: PropTypes.bool
+  extended: PropTypes.bool,
+  toggleRatingFilter: PropTypes.func,
+  ratingFiltersActive: PropTypes.bool,
+  filteredCount: PropTypes.number
 };
 
 export default ReviewBody;

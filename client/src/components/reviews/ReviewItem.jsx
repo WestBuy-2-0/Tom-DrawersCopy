@@ -17,6 +17,7 @@ const ReviewItem = props => {
   const starClasses = ` stars stars-small stars-small-${props.reviewInfo.rating}-0`;
   const submissionDate = new Date(props.reviewInfo.submission_date);
   const featuresDisplay = props.reviewInfo.rated_features ? "block" : "none";
+  
   const helpfulId = `${props.reviewInfo.id}-helpful`;
   const unhelpfulId = `${props.reviewInfo.id}-unhelpful`;
   const thankyouId = `${props.reviewInfo.id}-thankyou`;

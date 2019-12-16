@@ -8,7 +8,7 @@ const RatingFilter = props => {
     return (
         <div className="rating-filter-container">
             <fieldset>
-                {props.ratingCounts.map((tuple, index) => <RatingBar starRating={tuple[0]} ratingCount={tuple[1]} totalReviews={props.totalReviews} key={index} />)}
+                {props.ratingCounts.map((tuple, index) => <RatingBar starRating={tuple[0]} ratingCount={tuple[1]} totalReviews={props.totalReviews} toggleRatingFilter={props.toggleRatingFilter} key={index} />)}
             </fieldset>
         </div>
     )
@@ -16,7 +16,8 @@ const RatingFilter = props => {
 
 RatingFilter.propTypes = {
     totalReviews: PropTypes.number,
-    ratingCounts: PropTypes.array
+    ratingCounts: PropTypes.array,
+    toggleRatingFilter: PropTypes.toggleRatingFilter
 }
 
 export default RatingFilter;

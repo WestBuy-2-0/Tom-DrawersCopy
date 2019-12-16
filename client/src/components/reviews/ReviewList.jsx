@@ -4,11 +4,20 @@ import ReviewItem from "./ReviewItem.jsx";
 import Button from "react-bootstrap/Button";
 
 const ReviewList = props => {
+  let reviewCountDisplay;
+
+  if (props.ratingFiltersActive) {
+    reviewCountDisplay = props.filteredCount;
+  } else if (props.filters.vp) {
+    reviewCountDisplay = props.vpCount;
+  } else {
+    reviewCountDisplay = props.totalReviews;
+  }
+
   return (
     <div className="review-list-container">
       <div className="review-list-info">
-        Showing <strong>1-{props.reviewData.length}</strong> of{" "}
-        {props.filters.vp ? props.vpCount : props.totalReviews} reviews
+        Showing <strong>1-{props.reviewData.length}</strong> of{" " + reviewCountDisplay} reviews
       </div>
       <ul className="review-list">
         {props.reviewData.map((review, index) => (
@@ -46,7 +55,9 @@ ReviewList.propTypes = {
   extendReviews: PropTypes.func,
   filters: PropTypes.object,
   vpCount: PropTypes.number,
-  extended: PropTypes.bool
+  extended: PropTypes.bool,
+  ratingFiltersActive: PropTypes.bool,
+  filteredCount: PropTypes.number
 };
 
 

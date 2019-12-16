@@ -29,17 +29,15 @@ export default class ReviewDrawer extends React.Component {
         }
       },
       filters: {
-        vp: false,
-        five_star: false,
-        four_star: false,
-        three_star: false,
-        two_star: false,
-        one_star: false
+        vp: false
       },
-      listExtended: false,
-      renderedReviews: [],
+      ratingFilters: {},
+      ratingFiltersActive: false,
+      filteredCount: 0,
       vpReviews: [],
-      vpCount: 0
+      vpCount: 0,
+      listExtended: false,
+      renderedReviews: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -48,6 +46,7 @@ export default class ReviewDrawer extends React.Component {
     this.getVPReviews = this.getVPReviews.bind(this);
     this.renderVPReviews = this.renderVPReviews.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+    this.toggleRatingFilter = this.toggleRatingFilter.bind(this);
   }
 
   setStateAsync(state) {
@@ -109,7 +108,60 @@ export default class ReviewDrawer extends React.Component {
     }
   }
 
-  addFilter(filter) {}
+  toggleRatingFilter(filter) {
+    let ratingFilters = this.state.ratingFilters;
+    let ratingFiltersActive = this.state.ratingFiltersActive;
+    let filteredCount = this.state.filteredCount;
+
+    let reviewsToFilter = this.state.filters.vp
+      ? this.state.vpReviews
+      : this.state.reviewData.reviews;
+
+    let renderedReviews = [];
+
+
+    if (!ratingFilters.hasOwnProperty(filter)) {
+      ratingFilters[filter] = true;
+      ratingFiltersActive = true;
+
+      let filteredReviews = reviewsToFilter.filter(review =>
+        ratingFilters.hasOwnProperty(review.rating)
+      );
+
+      filteredCount = filteredReviews.length;
+
+      if (this.state.listExtended) {
+        renderedReviews = this.truncateReviews(16, filteredReviews);
+      } else {
+        renderedReviews = this.truncateReviews(8, filteredReviews);
+      }
+    } else {
+      delete ratingFilters[filter];
+
+      if (Object.keys(ratingFilters).length === 0) {
+        ratingFiltersActive = false;
+        if (this.state.listExtended) {
+          renderedReviews = this.truncateReviews(16, reviewsToFilter);
+        } else {
+          renderedReviews = this.truncateReviews(8, reviewsToFilter);
+        }
+      } else {
+        let filteredReviews = reviewsToFilter.filter(review =>
+          ratingFilters.hasOwnProperty(review.rating)
+        );
+
+        filteredCount = filteredReviews.length;
+
+        if (this.state.listExtended) {
+          renderedReviews = this.truncateReviews(16, filteredReviews);
+        } else {
+          renderedReviews = this.truncateReviews(8, filteredReviews);
+        }
+      }
+    }
+
+    this.setState({ renderedReviews, ratingFilters, ratingFiltersActive, filteredCount });
+  }
 
   getVPReviews() {
     let vpReviews = this.state.reviewData.reviews.filter((review, index) => {
@@ -137,7 +189,11 @@ export default class ReviewDrawer extends React.Component {
     //only works for verified filter right now because truncateReviews will always reset to initial 8 reviews as it is, with no filters
     let filters = { ...this.state.filters };
     filters[filter] = false;
-    this.setState({ renderedReviews: this.truncateReviews(8), filters, listExtended: false});
+    this.setState({
+      renderedReviews: this.truncateReviews(8),
+      filters,
+      listExtended: false
+    });
   }
 
   toggle() {
@@ -170,6 +226,9 @@ export default class ReviewDrawer extends React.Component {
               renderVPReviews={this.renderVPReviews}
               removeFilter={this.removeFilter}
               extended={this.state.listExtended}
+              toggleRatingFilter={this.toggleRatingFilter}
+              ratingFiltersActive={this.state.ratingFiltersActive}
+              filteredCount={this.state.filteredCount}
             />
           </Card.Body>
         </Collapse>

@@ -50,6 +50,7 @@ export default class RatingBar extends React.Component {
           $(`#${this.props.starRating}-checkmark`).css("display", "none");
           $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
         }
+        this.props.toggleRatingFilter(this.props.starRating);
       }
     );
   }
@@ -104,5 +105,6 @@ export default class RatingBar extends React.Component {
 RatingBar.propTypes = {
   starRating: PropTypes.number,
   ratingCount: PropTypes.number,
-  totalReviews: PropTypes.number
+  totalReviews: PropTypes.number,
+  toggleRatingFilter: PropTypes.func
 };
