@@ -110,7 +110,7 @@ export default class ReviewDrawer extends React.Component {
     }
   }
 
-  toggleRatingFilter(filter) {
+  toggleRatingFilter(filter = "tricksy") {
     let ratingFilters = this.state.ratingFilters;
     let ratingFiltersActive = this.state.ratingFiltersActive;
     let filteredCount = this.state.filteredCount;

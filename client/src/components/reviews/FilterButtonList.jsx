@@ -16,6 +16,7 @@ const FilterButtonList = props => {
   }
 
  const removeRatingFilter = (e) => {
+     e.persist();
     props.toggleRatingFilter(e.target.value);
 
   }
