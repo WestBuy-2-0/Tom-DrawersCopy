@@ -29,11 +29,9 @@ export default class RatingBar extends React.Component {
       if (this.props.ratingCount === 0) {
         $(`#${this.props.starRating}-fancy-checkbox`).addClass("disabled");
         $(`#${this.props.starRating}-container`).addClass("disabled-cursor");
-        this.setState({disabled: true});
+        this.setState({ disabled: true });
       }
     }
-
-    
   }
 
   handleChange() {
