@@ -230,6 +230,7 @@ export default class ReviewDrawer extends React.Component {
               ratingFiltersActive={this.state.ratingFiltersActive}
               filteredCount={this.state.filteredCount}
               activeFilters={{...this.state.ratingFilters}}
+              truncateReviews={this.truncateReviews}
             />
           </Card.Body>
         </Collapse>

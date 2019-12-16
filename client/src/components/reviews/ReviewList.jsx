@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "./ReviewItem.jsx";
+import FilterButtonList from "./FilterButtonList.jsx";
 import Button from "react-bootstrap/Button";
 
 const ReviewList = props => {
   let reviewCountDisplay;
   let activeFilters = Object.keys(props.activeFilters);
+  let filtersAreActive = props.filters.vp || props.ratingFiltersActive;
 
   if (props.ratingFiltersActive) {
     reviewCountDisplay = props.filteredCount;
@@ -15,7 +17,6 @@ const ReviewList = props => {
     reviewCountDisplay = props.totalReviews;
   }
 
-  
   return (
     <div className="review-list-container">
       <div className="review-list-info">
@@ -23,12 +24,14 @@ const ReviewList = props => {
           Showing <strong>1-{props.reviewData.length}</strong> of
           {" " + reviewCountDisplay} reviews
         </div>
-        <div className="active-filters">
-          <strong>Filters: </strong>
-          {props.filters.vp ? <Button variant="outline-primary">Verified Purchase<i class="fas fa-times btn-close-x"></i></Button> : <></>}
-          {activeFilters.map((filter, index) => <Button variant="outline-primary" key={index}>{filter} Star<i class="fas fa-times btn-close-x"></i></Button>)}
-          <Button variant="link" id="clear-all-btn">Clear All</Button>
-        </div>
+        <FilterButtonList
+          vpFilter={props.filters.vp}
+          activeFilters={activeFilters}
+          filtersAreActive={filtersAreActive}
+          removeFilter={props.removeFilter}
+          toggleRatingFilter={props.toggleRatingFilter}
+          truncateReviews={props.truncateReviews}
+        />
       </div>
       <ul className="review-list">
         {props.reviewData.map((review, index) => (
@@ -69,7 +72,10 @@ ReviewList.propTypes = {
   extended: PropTypes.bool,
   ratingFiltersActive: PropTypes.bool,
   filteredCount: PropTypes.number,
-  activeFilters: PropTypes.object
+  activeFilters: PropTypes.object,
+  removeFilter: PropTypes.func,
+  toggleRatingFilter: PropTypes.func,
+  truncateReviews: PropTypes.func
 };
 
 export default ReviewList;
