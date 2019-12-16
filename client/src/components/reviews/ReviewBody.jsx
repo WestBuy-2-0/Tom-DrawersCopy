@@ -16,6 +16,7 @@ const ReviewBody = props => {
         <VerifiedPurchaseFilter
           renderVPReviews={props.renderVPReviews}
           removeFilter={props.removeFilter}
+          vpFilter={props.filters.vp}
         />
         <ReviewFilterSelector />
       </div>

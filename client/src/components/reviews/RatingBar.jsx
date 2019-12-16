@@ -40,18 +40,17 @@ export default class RatingBar extends React.Component {
         $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
       }
     }
-    console.log("prevProps active filters: ", prevProps.activeFilters)
-    console.log("current Props active filters: ", this.props.activeFilters)
-    if(JSON.stringify(this.props.activeFilters) !== JSON.stringify(prevProps.activeFilters)) {
+
+    if (
+      JSON.stringify(this.props.activeFilters) !==
+      JSON.stringify(prevProps.activeFilters)
+    ) {
       if (this.props.activeFilters.hasOwnProperty(this.props.starRating)) {
-        this.setState({checked: true});
-        $(`#${this.props.starRating}-checkmark`).css(
-          "display",
-          "inline-block"
-        );
+        this.setState({ checked: true });
+        $(`#${this.props.starRating}-checkmark`).css("display", "inline-block");
         $(`#${this.props.starRating}-fancy-checkbox`).addClass("checked");
       } else {
-        this.setState({checked: false});
+        this.setState({ checked: false });
         $(`#${this.props.starRating}-checkmark`).css("display", "none");
         $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
       }

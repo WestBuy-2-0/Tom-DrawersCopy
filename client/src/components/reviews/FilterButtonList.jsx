@@ -15,8 +15,9 @@ const FilterButtonList = props => {
     props.removeFilter("vp");
   }
 
-  const removeRatingFilter = (e) => {
+ const removeRatingFilter = (e) => {
     props.toggleRatingFilter(e.target.value);
+
   }
 
   const restoreAllReviews = () => {

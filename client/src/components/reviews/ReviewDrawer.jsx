@@ -166,7 +166,7 @@ export default class ReviewDrawer extends React.Component {
       ratingFilters,
       ratingFiltersActive,
       filteredCount
-    });
+    })
   }
 
   getVPReviews() {
@@ -193,6 +193,7 @@ export default class ReviewDrawer extends React.Component {
 
   removeFilter(filter) {
     //only works for verified filter right now because truncateReviews will always reset to initial 8 reviews as it is, with no filters
+    console.log("Calling removeFilter with ", filter, " as the filter");
     let filters = { ...this.state.filters };
     filters[filter] = false;
     this.setState({
