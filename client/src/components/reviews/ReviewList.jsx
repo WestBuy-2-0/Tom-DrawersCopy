@@ -30,7 +30,7 @@ const ReviewList = props => {
           filtersAreActive={filtersAreActive}
           removeFilter={props.removeFilter}
           toggleRatingFilter={props.toggleRatingFilter}
-          truncateReviews={props.truncateReviews}
+          restoreReviews={props.restoreReviews}
         />
       </div>
       <ul className="review-list">
@@ -75,7 +75,7 @@ ReviewList.propTypes = {
   activeFilters: PropTypes.object,
   removeFilter: PropTypes.func,
   toggleRatingFilter: PropTypes.func,
-  truncateReviews: PropTypes.func
+  restoreReviews: PropTypes.func
 };
 
 export default ReviewList;

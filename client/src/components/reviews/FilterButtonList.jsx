@@ -20,7 +20,7 @@ const FilterButtonList = props => {
   }
 
   const restoreAllReviews = () => {
-    props.truncateReviews(8);
+    props.restoreReviews();
   }
 
 
@@ -56,7 +56,7 @@ FilterButtonList.propTypes = {
   filtersAreActive: PropTypes.bool,
   removeFilter: PropTypes.func,
   toggleRatingFilter: PropTypes.func,
-  truncateReviews: PropTypes.func
+  restoreReviews: PropTypes.func
 };
 
 export default FilterButtonList;

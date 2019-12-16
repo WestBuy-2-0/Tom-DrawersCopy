@@ -27,6 +27,7 @@ const ReviewSummary = props => {
         totalReviews={props.reviewSummaryData.review_count}
         ratingCounts={ratingCounts}
         toggleRatingFilter={props.toggleRatingFilter}
+        ratingFiltersActive={props.ratingFiltersActive}
       />
       <span className="spacer-column"></span>
       <RecommendationDonut
@@ -38,7 +39,8 @@ const ReviewSummary = props => {
 
 ReviewSummary.propTypes = {
   reviewSummaryData: PropTypes.object,
-  toggleRatingFilter: PropTypes.func
+  toggleRatingFilter: PropTypes.func,
+  ratingFiltersActive: PropTypes.bool
 };
 
 export default ReviewSummary;

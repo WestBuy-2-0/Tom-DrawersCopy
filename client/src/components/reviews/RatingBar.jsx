@@ -32,6 +32,13 @@ export default class RatingBar extends React.Component {
         this.setState({ disabled: true });
       }
     }
+    if (this.props.ratingFiltersActive !== prevProps.ratingFiltersActive) {
+      if (!this.props.ratingFiltersActive) {
+        this.setState({ checked: false });
+        $(`#${this.props.starRating}-checkmark`).css("display", "none");
+        $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
+      }
+    }
   }
 
   handleChange() {
@@ -106,5 +113,6 @@ RatingBar.propTypes = {
   starRating: PropTypes.number,
   ratingCount: PropTypes.number,
   totalReviews: PropTypes.number,
-  toggleRatingFilter: PropTypes.func
+  toggleRatingFilter: PropTypes.func,
+  ratingFiltersActive: PropTypes.bool
 };

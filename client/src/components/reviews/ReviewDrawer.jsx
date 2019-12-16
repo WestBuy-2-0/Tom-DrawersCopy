@@ -47,6 +47,7 @@ export default class ReviewDrawer extends React.Component {
     this.renderVPReviews = this.renderVPReviews.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
     this.toggleRatingFilter = this.toggleRatingFilter.bind(this);
+    this.restoreReviews = this.restoreReviews.bind(this);
   }
 
   setStateAsync(state) {
@@ -87,6 +88,7 @@ export default class ReviewDrawer extends React.Component {
   }
 
   truncateReviews(num, r = this.state.reviewData.reviews) {
+    console.log("I'm truncating reviews");
     let reviews = r.slice();
     return reviews.filter((review, index) => {
       return index < num;
@@ -118,7 +120,6 @@ export default class ReviewDrawer extends React.Component {
       : this.state.reviewData.reviews;
 
     let renderedReviews = [];
-
 
     if (!ratingFilters.hasOwnProperty(filter)) {
       ratingFilters[filter] = true;
@@ -160,7 +161,12 @@ export default class ReviewDrawer extends React.Component {
       }
     }
 
-    this.setState({ renderedReviews, ratingFilters, ratingFiltersActive, filteredCount });
+    this.setState({
+      renderedReviews,
+      ratingFilters,
+      ratingFiltersActive,
+      filteredCount
+    });
   }
 
   getVPReviews() {
@@ -193,6 +199,22 @@ export default class ReviewDrawer extends React.Component {
       renderedReviews: this.truncateReviews(8),
       filters,
       listExtended: false
+    });
+  }
+
+  restoreReviews() {
+    let filters = { vp: false };
+    let ratingFilters = {};
+    let ratingFiltersActive = false;
+    let filteredCount = 0;
+    let listExtended = false;
+    this.setState({
+      renderedReviews: this.truncateReviews(8),
+      filters,
+      ratingFilters,
+      ratingFiltersActive,
+      filteredCount,
+      listExtended
     });
   }
 
@@ -229,8 +251,8 @@ export default class ReviewDrawer extends React.Component {
               toggleRatingFilter={this.toggleRatingFilter}
               ratingFiltersActive={this.state.ratingFiltersActive}
               filteredCount={this.state.filteredCount}
-              activeFilters={{...this.state.ratingFilters}}
-              truncateReviews={this.truncateReviews}
+              activeFilters={{ ...this.state.ratingFilters }}
+              restoreReviews={this.restoreReviews}
             />
           </Card.Body>
         </Collapse>
