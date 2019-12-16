@@ -17,17 +17,37 @@ const ReviewItem = props => {
   const starClasses = ` stars stars-small stars-small-${props.reviewInfo.rating}-0`;
   const submissionDate = new Date(props.reviewInfo.submission_date);
   const featuresDisplay = props.reviewInfo.rated_features ? "block" : "none";
+  const helpfulId = `${props.reviewInfo.id}-helpful`;
+  const unhelpfulId = `${props.reviewInfo.id}-unhelpful`;
+  const thankyouId = `${props.reviewInfo.id}-thankyou`;
+
+  const sayThankYou = () => {
+    $(`#${helpfulId}`).css("display", "none");
+    $(`#${unhelpfulId}`).css("display", "none");
+    $(`#${thankyouId}`).css("display", "inline-block");
+  }
 
   return (
     <li className="review-item">
       <div className="review-item-header">
-        <div className="author-name">{props.reviewInfo.submitter}</div>
-        <div className="feature-ratings" style={{"display": featuresDisplay}}>
+        <div className="author-name">
+          <a href="#">{props.reviewInfo.submitter}</a>
+        </div>
+        <div className="feature-ratings" style={{ display: featuresDisplay }}>
           <h4 className="feature-header">Features</h4>
           <div className="feature-rating-bars">
-            <FeatureRatingBar feature="Quality" featureRating={props.reviewInfo.quality_rating} />
-            <FeatureRatingBar feature="Value" featureRating={props.reviewInfo.value_rating} />
-            <FeatureRatingBar feature="Ease of Use" featureRating={props.reviewInfo.ease_of_use_rating} />
+            <FeatureRatingBar
+              feature="Quality"
+              featureRating={props.reviewInfo.quality_rating}
+            />
+            <FeatureRatingBar
+              feature="Value"
+              featureRating={props.reviewInfo.value_rating}
+            />
+            <FeatureRatingBar
+              feature="Ease of Use"
+              featureRating={props.reviewInfo.ease_of_use_rating}
+            />
           </div>
         </div>
       </div>
@@ -37,7 +57,9 @@ const ReviewItem = props => {
           <h4 className="review-title">{props.reviewInfo.title}</h4>
         </div>
         <div className="review-info">
-          <VerifiedPurchaseIcon isVerified={props.reviewInfo.verified_purchase}/>
+          <VerifiedPurchaseIcon
+            isVerified={props.reviewInfo.verified_purchase}
+          />
           <span className="post-date">
             Posted {submissionDate.toLocaleDateString()}
           </span>
@@ -51,11 +73,17 @@ const ReviewItem = props => {
           {wouldRecommendText}
         </div>
         <div className="feedback-options">
-          <Button variant="outline-primary" className="helpful">
-            Helpful ({props.reviewInfo.helpful_count})
-          </Button>
-          <span className="unhelpful">
-            <a href="#">Unhelpful ({props.reviewInfo.unhelpful_count})</a>
+          <span className="helpfulness-feedback">
+            <Button variant="outline-primary" className="helpful" id={helpfulId} onClick={sayThankYou}>
+              Helpful ({props.reviewInfo.helpful_count})
+            </Button>
+            <span className="unhelpful" id={unhelpfulId} onClick={sayThankYou}>
+              <a>Unhelpful ({props.reviewInfo.unhelpful_count})</a>
+            </span>
+            <span className="thankyou" id={thankyouId}>
+            <i class="fas fa-check thankyou-checkmark"></i>
+              Thanks for your feedback!
+            </span>
           </span>
           <span className="feedback-spacer"></span>
           <span className="report">
