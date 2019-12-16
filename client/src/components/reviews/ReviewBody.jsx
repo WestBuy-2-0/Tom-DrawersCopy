@@ -29,6 +29,7 @@ const ReviewBody = props => {
         extended={props.extended}
         ratingFiltersActive={props.ratingFiltersActive}
         filteredCount={props.filteredCount}
+        activeFilters={props.activeFilters}
       />
     </div>
   );
@@ -46,7 +47,8 @@ ReviewBody.propTypes = {
   extended: PropTypes.bool,
   toggleRatingFilter: PropTypes.func,
   ratingFiltersActive: PropTypes.bool,
-  filteredCount: PropTypes.number
+  filteredCount: PropTypes.number,
+  activeFilters: PropTypes.object
 };
 
 export default ReviewBody;

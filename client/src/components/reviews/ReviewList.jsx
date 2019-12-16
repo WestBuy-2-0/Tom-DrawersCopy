@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 
 const ReviewList = props => {
   let reviewCountDisplay;
+  let activeFilters = Object.keys(props.activeFilters);
 
   if (props.ratingFiltersActive) {
     reviewCountDisplay = props.filteredCount;
@@ -14,10 +15,20 @@ const ReviewList = props => {
     reviewCountDisplay = props.totalReviews;
   }
 
+  
   return (
     <div className="review-list-container">
       <div className="review-list-info">
-        Showing <strong>1-{props.reviewData.length}</strong> of{" " + reviewCountDisplay} reviews
+        <div className="number-of-reviews">
+          Showing <strong>1-{props.reviewData.length}</strong> of
+          {" " + reviewCountDisplay} reviews
+        </div>
+        <div className="active-filters">
+          <strong>Filters: </strong>
+          {props.filters.vp ? <Button variant="outline-primary">Verified Purchase<i class="fas fa-times btn-close-x"></i></Button> : <></>}
+          {activeFilters.map((filter, index) => <Button variant="outline-primary" key={index}>{filter} Star<i class="fas fa-times btn-close-x"></i></Button>)}
+          <Button variant="link" id="clear-all-btn">Clear All</Button>
+        </div>
       </div>
       <ul className="review-list">
         {props.reviewData.map((review, index) => (
@@ -46,7 +57,7 @@ const ReviewList = props => {
       </div>
     </div>
   );
-}
+};
 
 ReviewList.propTypes = {
   productId: PropTypes.number,
@@ -57,9 +68,8 @@ ReviewList.propTypes = {
   vpCount: PropTypes.number,
   extended: PropTypes.bool,
   ratingFiltersActive: PropTypes.bool,
-  filteredCount: PropTypes.number
+  filteredCount: PropTypes.number,
+  activeFilters: PropTypes.object
 };
-
-
 
 export default ReviewList;

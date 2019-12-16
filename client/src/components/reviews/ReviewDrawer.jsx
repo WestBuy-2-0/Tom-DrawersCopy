@@ -229,6 +229,7 @@ export default class ReviewDrawer extends React.Component {
               toggleRatingFilter={this.toggleRatingFilter}
               ratingFiltersActive={this.state.ratingFiltersActive}
               filteredCount={this.state.filteredCount}
+              activeFilters={{...this.state.ratingFilters}}
             />
           </Card.Body>
         </Collapse>
