@@ -15,6 +15,7 @@ const RatingFilter = props => {
             totalReviews={props.totalReviews}
             toggleRatingFilter={props.toggleRatingFilter}
             ratingFiltersActive={props.ratingFiltersActive}
+            activeFilters={props.activeFilters}
             key={index}
           />
         ))}
@@ -27,7 +28,8 @@ RatingFilter.propTypes = {
   totalReviews: PropTypes.number,
   ratingCounts: PropTypes.array,
   toggleRatingFilter: PropTypes.func,
-  ratingFiltersActive: PropTypes.bool
+  ratingFiltersActive: PropTypes.bool,
+  activeFilters: PropTypes.object
 };
 
 export default RatingFilter;
