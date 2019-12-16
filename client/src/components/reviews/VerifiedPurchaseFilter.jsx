@@ -23,7 +23,7 @@ export default class VerifiedPurchaseFilter extends React.Component {
         if (this.state.checked) {
           $(".slider").addClass("checked");
           $(".slider-toggle").addClass("checked");
-          this.props.getVPReviews();
+          this.props.renderVPReviews();
         } else {
           $(".slider").removeClass("checked");
           $(".slider-toggle").removeClass("checked");
@@ -61,5 +61,5 @@ export default class VerifiedPurchaseFilter extends React.Component {
 };
 
 VerifiedPurchaseFilter.propTypes = {
-  getVPReviews: PropTypes.func
+ renderVPReviews: PropTypes.func
 }

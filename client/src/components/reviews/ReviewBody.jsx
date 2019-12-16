@@ -8,12 +8,15 @@ import ReviewFilterSelector from "./ReviewFilterSelector.jsx";
 import "../../assets/styles/ReviewBody.scss";
 
 const ReviewBody = props => {
-  console.log("In reviewBody, this is vpCount: ", props.vpCount)
+  console.log("In reviewBody, this is vpCount: ", props.vpCount);
   return (
     <div className="drawer-content" id="review-drawer-content">
       <ReviewSummary reviewSummaryData={props.reviewSummaryData} />
       <div className="review-filters-container">
-        <VerifiedPurchaseFilter getVPReviews={props.getVPReviews} removeFilter={props.removeFilter} />
+        <VerifiedPurchaseFilter
+          renderVPReviews={props.renderVPReviews}
+          removeFilter={props.removeFilter}
+        />
         <ReviewFilterSelector />
       </div>
       <ReviewList
@@ -23,6 +26,7 @@ const ReviewBody = props => {
         vpCount={props.vpCount}
         extendReviews={props.extendReviews}
         filters={props.filters}
+        extended={props.extended}
       />
     </div>
   );
@@ -33,10 +37,11 @@ ReviewBody.propTypes = {
   reviewSummaryData: PropTypes.object,
   reviewData: PropTypes.array,
   extendReviews: PropTypes.func,
-  getVPReviews: PropTypes.func,
+  renderVPReviews: PropTypes.func,
   filters: PropTypes.object,
   vpCount: PropTypes.number,
-  removeFilter: PropTypes.func
+  removeFilter: PropTypes.func,
+  extended: PropTypes.bool
 };
 
 export default ReviewBody;

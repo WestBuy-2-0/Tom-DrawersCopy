@@ -36,16 +36,24 @@ export default class ReviewDrawer extends React.Component {
         two_star: false,
         one_star: false
       },
+      listExtended: false,
       renderedReviews: [],
+      vpReviews: [],
       vpCount: 0
     };
 
     this.toggle = this.toggle.bind(this);
     this.truncateReviews = this.truncateReviews.bind(this);
     this.extendReviews = this.extendReviews.bind(this);
-    this.getFilteredReviews = this.getFilteredReviews.bind(this);
     this.getVPReviews = this.getVPReviews.bind(this);
+    this.renderVPReviews = this.renderVPReviews.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+  }
+
+  setStateAsync(state) {
+    return new Promise(resolve => {
+      this.setState(state, resolve);
+    });
   }
 
   componentDidMount() {
@@ -87,36 +95,49 @@ export default class ReviewDrawer extends React.Component {
   }
 
   extendReviews() {
-    this.setState({ renderedReviews: this.truncateReviews(16) });
+    //right now only checks for VP filter
+    if (this.state.filters.vp) {
+      this.setState({
+        renderedReviews: this.truncateReviews(16, this.state.vpReviews),
+        listExtended: true
+      });
+    } else {
+      this.setState({
+        renderedReviews: this.truncateReviews(16),
+        listExtended: true
+      });
+    }
   }
 
-  getFilteredReviews() {
-    let ratings = [...arguments];
-  }
+  addFilter(filter) {}
 
   getVPReviews() {
-    let VPreviews = this.state.reviewData.reviews.filter((review, index) => {
+    let vpReviews = this.state.reviewData.reviews.filter((review, index) => {
       return review.verified_purchase;
     });
-    let vpCount = VPreviews.length;
-    this.setState(
-      state => {
-        let filters = { ...this.state.filters };
-        filters.vp = true;
-        return {
-          renderedReviews: this.truncateReviews(8, VPreviews),
-          vpCount,
-          filters
-        };
-      }
-    );
+    return vpReviews;
   }
 
-  removeFilter() {
-    let filtersToRemove = [...arguments];
-    let filters = {...this.state.filters};
-    filtersToRemove.forEach(filter => filters[filter] = false);
-    this.setState({ renderedReviews: this.truncateReviews(8), filters });
+  renderVPReviews() {
+    let vpReviews = this.getVPReviews();
+    let vpCount = vpReviews.length;
+    this.setState(state => {
+      let filters = { ...this.state.filters };
+      filters.vp = true;
+      return {
+        renderedReviews: this.truncateReviews(8, vpReviews),
+        vpReviews,
+        vpCount,
+        filters
+      };
+    });
+  }
+
+  removeFilter(filter) {
+    //only works for verified filter right now because truncateReviews will always reset to initial 8 reviews as it is, with no filters
+    let filters = { ...this.state.filters };
+    filters[filter] = false;
+    this.setState({ renderedReviews: this.truncateReviews(8), filters, listExtended: false});
   }
 
   toggle() {
@@ -146,8 +167,9 @@ export default class ReviewDrawer extends React.Component {
               filters={this.state.filters}
               vpCount={this.state.vpCount}
               extendReviews={this.extendReviews}
-              getVPReviews={this.getVPReviews}
+              renderVPReviews={this.renderVPReviews}
               removeFilter={this.removeFilter}
+              extended={this.state.listExtended}
             />
           </Card.Body>
         </Collapse>
