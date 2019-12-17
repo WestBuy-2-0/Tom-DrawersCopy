@@ -14,7 +14,7 @@ export default class ReviewDrawer extends React.Component {
     this.state = {
       open: false,
       reviewData: {
-        count: 0,
+        count: null,
         reviews: [],
         reviewSummaryData: {
           product_id: 0,
@@ -63,10 +63,14 @@ export default class ReviewDrawer extends React.Component {
         `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
       )
       .then(data => {
-        if (data.data.count > 0) {
+        if (data.data.count && data.data.count > 0) {
           this.setState({ reviewData: data.data }, () => {
             this.setState({ renderedReviews: this.truncateReviews(8) });
           });
+        } else {
+          let reviewData = this.state.reviewData;
+          reviewData.count = 0;
+          this.setState({reviewData});
         }
       });
   }
@@ -78,10 +82,14 @@ export default class ReviewDrawer extends React.Component {
           `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
         )
         .then(data => {
-          if (data.data.count > 0) {
+          if (data.data.count && data.data.count > 0) {
             this.setState({ reviewData: data.data }, () => {
               this.setState({ renderedReviews: this.truncateReviews(8) });
             });
+          } else {
+            let reviewData = this.state.reviewData;
+            reviewData.count = 0;
+            this.setState({reviewData});
           }
         });
     }
