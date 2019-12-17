@@ -32,6 +32,29 @@ export default class RatingBar extends React.Component {
         this.setState({ disabled: true });
       }
     }
+
+    if (this.props.ratingFiltersActive !== prevProps.ratingFiltersActive) {
+      if (!this.props.ratingFiltersActive) {
+        this.setState({ checked: false });
+        $(`#${this.props.starRating}-checkmark`).css("display", "none");
+        $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
+      }
+    }
+
+    if (
+      JSON.stringify(this.props.activeFilters) !==
+      JSON.stringify(prevProps.activeFilters)
+    ) {
+      if (this.props.activeFilters.hasOwnProperty(this.props.starRating)) {
+        this.setState({ checked: true });
+        $(`#${this.props.starRating}-checkmark`).css("display", "inline-block");
+        $(`#${this.props.starRating}-fancy-checkbox`).addClass("checked");
+      } else {
+        this.setState({ checked: false });
+        $(`#${this.props.starRating}-checkmark`).css("display", "none");
+        $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
+      }
+    }
   }
 
   handleChange() {
@@ -50,6 +73,7 @@ export default class RatingBar extends React.Component {
           $(`#${this.props.starRating}-checkmark`).css("display", "none");
           $(`#${this.props.starRating}-fancy-checkbox`).removeClass("checked");
         }
+        this.props.toggleRatingFilter(this.props.starRating);
       }
     );
   }
@@ -104,5 +128,8 @@ export default class RatingBar extends React.Component {
 RatingBar.propTypes = {
   starRating: PropTypes.number,
   ratingCount: PropTypes.number,
-  totalReviews: PropTypes.number
+  totalReviews: PropTypes.number,
+  toggleRatingFilter: PropTypes.func,
+  ratingFiltersActive: PropTypes.bool,
+  activeFilters: PropTypes.object
 };

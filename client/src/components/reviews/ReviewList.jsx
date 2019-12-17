@@ -1,14 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "./ReviewItem.jsx";
+import FilterButtonList from "./FilterButtonList.jsx";
 import Button from "react-bootstrap/Button";
 
 const ReviewList = props => {
+  let reviewCountDisplay;
+  let activeFilters = Object.keys(props.activeFilters);
+  let filtersAreActive = props.filters.vp || props.ratingFiltersActive;
+
+  if (props.ratingFiltersActive) {
+    reviewCountDisplay = props.filteredCount;
+  } else if (props.filters.vp) {
+    reviewCountDisplay = props.vpCount;
+  } else {
+    reviewCountDisplay = props.totalReviews;
+  }
+
   return (
     <div className="review-list-container">
       <div className="review-list-info">
-        Showing <strong>1-{props.reviewData.length}</strong> of{" "}
-        {props.filters.vp ? props.vpCount : props.totalReviews} reviews
+        <div className="number-of-reviews">
+          Showing <strong>1-{props.reviewData.length}</strong> of
+          {" " + reviewCountDisplay} reviews
+        </div>
+        <FilterButtonList
+          vpFilter={props.filters.vp}
+          activeFilters={activeFilters}
+          filtersAreActive={filtersAreActive}
+          removeFilter={props.removeFilter}
+          toggleRatingFilter={props.toggleRatingFilter}
+          restoreReviews={props.restoreReviews}
+        />
       </div>
       <ul className="review-list">
         {props.reviewData.map((review, index) => (
@@ -37,7 +60,7 @@ const ReviewList = props => {
       </div>
     </div>
   );
-}
+};
 
 ReviewList.propTypes = {
   productId: PropTypes.number,
@@ -46,9 +69,13 @@ ReviewList.propTypes = {
   extendReviews: PropTypes.func,
   filters: PropTypes.object,
   vpCount: PropTypes.number,
-  extended: PropTypes.bool
+  extended: PropTypes.bool,
+  ratingFiltersActive: PropTypes.bool,
+  filteredCount: PropTypes.number,
+  activeFilters: PropTypes.object,
+  removeFilter: PropTypes.func,
+  toggleRatingFilter: PropTypes.func,
+  restoreReviews: PropTypes.func
 };
-
-
 
 export default ReviewList;

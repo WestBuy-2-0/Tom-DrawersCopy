@@ -32,6 +32,23 @@ export default class Drawers extends React.Component {
     });
   }
 
+  // componentDidUpdate() {
+  //   const getProductID = () => {
+  //     let productUrl = window.location.href;
+  //     let urlBits = productUrl.split("/");
+  //     // return pathname.split("/")[2];
+  //     console.log("URL BITS! ", urlBits[urlBits.length - 2]);
+  //     return urlBits[urlBits.length - 2];
+  //   };
+  //   let productId = parseInt(getProductID());
+  //   if(productId !== this.state.productId) {
+  //     this.setState({productId}, () => {
+  //       console.log("Product ID updated in state: ", this.state.productId)
+  //     });
+  //   }
+  //   }
+  
+
   render() {
     return (
       <div className="drawers" id="drawers-container">

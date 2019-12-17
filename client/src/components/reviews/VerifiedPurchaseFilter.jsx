@@ -7,11 +7,37 @@ export default class VerifiedPurchaseFilter extends React.Component {
     super(props);
 
     this.state = {
+      //this state is currently not being used - replaced largely by ReviewDrawer state's filters.vp property
       checked: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.checkedClass = this.state.checked ? " checked" : "";
+  }
+
+  componentDidMount() {
+    console.log(
+      "current props VP filter on componentDiDMount: ",
+      this.props.vpFilter
+    );
+
+    if (!this.props.vpFilter) {
+      this.setState({ checked: false });
+      $(".slider").removeClass("checked");
+      $(".slider-toggle").removeClass("checked");
+    }
+  }
+
+  componentDidUpate(prevProps) {
+    console.log("prevProps VP filter: ", prevProps.vpFilter);
+    console.log("current props VP filter: ", this.props.vpFilter);
+    if (prevProps.vpFilter !== this.props.vpFilter) {
+      if (!this.props.vpFilter) {
+        this.setState({ checked: false });
+        $(".slider").removeClass("checked");
+        $(".slider-toggle").removeClass("checked");
+      }
+    }
   }
 
   handleChange() {
@@ -28,13 +54,21 @@ export default class VerifiedPurchaseFilter extends React.Component {
           $(".slider").removeClass("checked");
           $(".slider-toggle").removeClass("checked");
           this.props.removeFilter("vp");
-          //add truncateReviews call?
         }
       }
     );
   }
 
   render() {
+    console.log(
+      "The current vpFilter in the VP Filter component render function: ",
+      this.props.vpFilter
+    );
+    if (!this.props.vpFilter) {
+      $(".slider").removeClass("checked");
+      $(".slider-toggle").removeClass("checked");
+    }
+
     return (
       <div className="vp-filter-container">
         <div className="switch-label">
@@ -54,12 +88,15 @@ export default class VerifiedPurchaseFilter extends React.Component {
             <span className="verified-purchases">Verified Purchases</span>
           </div>
         </div>
-        <a href="#" className="learn-more">Learn More</a>
+        <a href="#" className="learn-more">
+          Learn More
+        </a>
       </div>
     );
   }
-};
+}
 
 VerifiedPurchaseFilter.propTypes = {
- renderVPReviews: PropTypes.func
-}
+  renderVPReviews: PropTypes.func,
+  vpFilter: PropTypes.bool
+};
