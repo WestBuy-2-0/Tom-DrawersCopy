@@ -7,6 +7,10 @@ import DrawerHeader from "../DrawerHeader.jsx";
 import ReviewBody from "./ReviewBody.jsx";
 import axios from "axios";
 
+//const baseURL = 'http://west-buy-drawers.us-east-2.elasticbeanstalk.com';
+
+const baseURL = 'http://localhost:3030';
+
 export default class ReviewDrawer extends React.Component {
   constructor(props) {
     super(props);
@@ -50,17 +54,17 @@ export default class ReviewDrawer extends React.Component {
     this.restoreReviews = this.restoreReviews.bind(this);
   }
 
-  setStateAsync(state) {
-    return new Promise(resolve => {
-      this.setState(state, resolve);
-    });
-  }
+  // setStateAsync(state) {
+  //   return new Promise(resolve => {
+  //     this.setState(state, resolve);
+  //   });
+  // }
 
   componentDidMount() {
     //query for review data here
     axios
       .get(
-        `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
+        `${baseURL}/reviews/${this.props.productId}`
       )
       .then(data => {
         if (data.data.count && data.data.count > 0) {
@@ -75,28 +79,28 @@ export default class ReviewDrawer extends React.Component {
       });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.productId != this.props.productId) {
-      axios
-        .get(
-          `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/reviews/${this.props.productId}`
-        )
-        .then(data => {
-          if (data.data.count && data.data.count > 0) {
-            this.setState({ reviewData: data.data }, () => {
-              this.setState({ renderedReviews: this.truncateReviews(8) });
-            });
-          } else {
-            let reviewData = this.state.reviewData;
-            reviewData.count = 0;
-            this.setState({reviewData});
-          }
-        });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.productId != this.props.productId) {
+  //     axios
+  //       .get(
+  //         `${baseURL}/reviews/${this.props.productId}`
+  //       )
+  //       .then(data => {
+  //         if (data.data.count && data.data.count > 0) {
+  //           this.setState({ reviewData: data.data }, () => {
+  //             this.setState({ renderedReviews: this.truncateReviews(8) });
+  //           });
+  //         } else {
+  //           let reviewData = this.state.reviewData;
+  //           reviewData.count = 0;
+  //           this.setState({reviewData});
+  //         }
+  //       });
+  //   }
+  // }
 
   truncateReviews(num, r = this.state.reviewData.reviews) {
-    console.log("I'm truncating reviews");
+    // console.log("I'm truncating reviews");
     let reviews = r.slice();
     return reviews.filter((review, index) => {
       return index < num;
@@ -201,7 +205,7 @@ export default class ReviewDrawer extends React.Component {
 
   removeFilter(filter) {
     //only works for verified filter right now because truncateReviews will always reset to initial 8 reviews as it is, with no filters
-    console.log("Calling removeFilter with ", filter, " as the filter");
+    // console.log("Calling removeFilter with ", filter, " as the filter");
     let filters = { ...this.state.filters };
     filters[filter] = false;
     this.setState({

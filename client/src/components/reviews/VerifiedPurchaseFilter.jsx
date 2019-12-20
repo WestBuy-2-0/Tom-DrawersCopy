@@ -16,10 +16,10 @@ export default class VerifiedPurchaseFilter extends React.Component {
   }
 
   componentDidMount() {
-    console.log(
-      "current props VP filter on componentDiDMount: ",
-      this.props.vpFilter
-    );
+    // console.log(
+    //   "current props VP filter on componentDiDMount: ",
+    //   this.props.vpFilter
+    // );
 
     if (!this.props.vpFilter) {
       this.setState({ checked: false });
@@ -29,8 +29,8 @@ export default class VerifiedPurchaseFilter extends React.Component {
   }
 
   componentDidUpate(prevProps) {
-    console.log("prevProps VP filter: ", prevProps.vpFilter);
-    console.log("current props VP filter: ", this.props.vpFilter);
+    // console.log("prevProps VP filter: ", prevProps.vpFilter);
+    // console.log("current props VP filter: ", this.props.vpFilter);
     if (prevProps.vpFilter !== this.props.vpFilter) {
       if (!this.props.vpFilter) {
         this.setState({ checked: false });
@@ -60,10 +60,10 @@ export default class VerifiedPurchaseFilter extends React.Component {
   }
 
   render() {
-    console.log(
-      "The current vpFilter in the VP Filter component render function: ",
-      this.props.vpFilter
-    );
+    // console.log(
+    //   "The current vpFilter in the VP Filter component render function: ",
+    //   this.props.vpFilter
+    // );
     if (!this.props.vpFilter) {
       $(".slider").removeClass("checked");
       $(".slider-toggle").removeClass("checked");
@@ -84,7 +84,7 @@ export default class VerifiedPurchaseFilter extends React.Component {
             ></input>
           </div>
           <div className="slider-label">
-            Show only <i class="far fa-check-circle"></i>
+            Show only <i className="far fa-check-circle"></i>
             <span className="verified-purchases">Verified Purchases</span>
           </div>
         </div>

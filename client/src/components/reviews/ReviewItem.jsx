@@ -69,7 +69,7 @@ const ReviewItem = props => {
         <div className="recommendation">
           <i
             style={{ display: wouldRecommendIcon }}
-            class="fas fa-check-circle"
+            className="fas fa-check-circle"
           ></i>
           {wouldRecommendText}
         </div>
@@ -82,7 +82,7 @@ const ReviewItem = props => {
               <a>Unhelpful ({props.reviewInfo.unhelpful_count})</a>
             </span>
             <span className="thankyou" id={thankyouId}>
-            <i class="fas fa-check thankyou-checkmark"></i>
+            <i className="fas fa-check thankyou-checkmark"></i>
               Thanks for your feedback!
             </span>
           </span>

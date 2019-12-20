@@ -29,9 +29,7 @@ export default class ReviewFilterSelector extends React.Component {
             onChange={this.handleChange}
             className="sort-options"
           >
-            <option selected value="MOST_RECENT">
-              Most Recent
-            </option>
+            <option value="MOST_RECENT">Most Recent</option>
             <option value="MOST_HELPFUL">Most Helpful</option>
             <option value="OLDEST">Oldest</option>
             <option value="HIGHEST_RATING">Highest Rating</option>

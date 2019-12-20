@@ -1,15 +1,7 @@
 const express = require("express");
 const mountRoutes = require("./routes");
 const cors = require("cors");
-const writeReviews = require("./dataGenerators/reviewDataGenerator.js");
-const writeOverview = require("./dataGenerators/overviewDataGenerator.js");
-const writeSpecs = require("./dataGenerators/specsDataGenerator.js");
-const axios = require("axios");
-const port = 3333;
-
-// writeReviews.writeReviews();
-// writeOverview.writeOverviewData();
-// writeSpecs.writeSpecs();
+const port = 3030;
 
 const app = express();
 
@@ -20,5 +12,5 @@ app.use(cors());
 mountRoutes(app);
 
 app.listen(port, () => {
-  console.log("Now listening on port " + port + "!");
+  console.log("Listening on port " + port + "...");
 });
