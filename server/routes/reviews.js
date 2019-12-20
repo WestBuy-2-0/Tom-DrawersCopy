@@ -32,7 +32,7 @@ module.exports = router;
 
 router.get('/:id', (req, res) => {
   // const { id } = req.params;
-  let random = 13;
+  let random = 5;
   let id = 5;
   //
   const count = 5;
@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
   let totalRating = 0;
 
   for (let i = 0; i < count; i++) {
-    const rating = (random + 1) % 6;
+    const rating = random % 6 || 3;
     totalRating += rating;
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
@@ -62,7 +62,7 @@ router.get('/:id', (req, res) => {
       ease_of_use_rating: (random + 3) % 5 || 4
     });
 
-    random += 3;
+    random += 1;
   }
 
   const average_rating = totalRating / count;

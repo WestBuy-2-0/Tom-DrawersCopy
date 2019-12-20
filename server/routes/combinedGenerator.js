@@ -31,7 +31,7 @@ const createOverview = (id, random) => {
     features.push({
       feature_id: i,
       feature_name: faker.company.catchPhrase(),
-      feature_description: faker.lorem.sentence()
+      feature_description: faker.lorem.sentence(),
     });
   }
 
@@ -45,7 +45,7 @@ const createOverview = (id, random) => {
   const overview = {
     description,
     features,
-    whats_included
+    whats_included,
   };
 
   return overview;
@@ -123,7 +123,7 @@ const createReviews = (id, random) => {
   let totalRating = 0;
 
   for (let i = 0; i < count; i++) {
-    const rating = (random + 1) % 6;
+    const rating = random % 5;
     totalRating += rating;
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
@@ -144,7 +144,7 @@ const createReviews = (id, random) => {
       ease_of_use_rating: (random + 3) % 5 || 4
     });
 
-    random += 3;
+    random += 1;
   }
 
   const average_rating = totalRating / count;
@@ -154,10 +154,10 @@ const createReviews = (id, random) => {
     review_count: count,
     average_rating,
     five_star: ratingTotals[5] || 0,
-    four_star: ratingTotals[4] || 2,
-    three_star: ratingTotals[3] || 2,
+    four_star: ratingTotals[4] || 0,
+    three_star: ratingTotals[3] || 0,
     two_star: ratingTotals[2] || 0,
-    one_star: ratingTotals[1] || 1,
+    one_star: ratingTotals[1] || 0,
     would_recommend_pct: (average_rating * 20 + 5).toFixed(0),
   };
 
