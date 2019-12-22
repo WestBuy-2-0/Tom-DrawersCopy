@@ -1,27 +1,23 @@
 const faker = require('faker');
-var product_id = 1;
-let randomizer = 0;
 
-const createProduct = () => {
-  let currentID = product_id;
-  const overview = createOverview(currentID, randomizer);
-  const reviewData = createReviews(currentID, randomizer);
-  const specData = createSpecs(currentID, randomizer);
+module.exports = createProduct = (_id, randomizer) => {
+  const overview = module.exports.createOverview(_id, randomizer);
+  const reviewData = module.exports.createReviews(_id, randomizer);
+  const specData = module.exports.createSpecs(_id, randomizer);
 
   const productEntry = {
-    product_id,
+    _id,
     overview,
     specData,
     reviewData,
   }
 
-  product_id++;
   randomizer += 5;
 
   return productEntry;
 }
 
-const createOverview = (id, random) => {
+module.exports.createOverview = (id, random) => {
   const description = faker.lorem.sentences(5);
 
   const features = [];
@@ -36,13 +32,14 @@ const createOverview = (id, random) => {
   }
 
   const whats_included = [];
-  const addons = random % 3 + 3;
+  const addons = random % 3 + 1;
 
   for (let i = 0; i < addons; i++) {
     whats_included.push(faker.lorem.sentence());
   }
 
   const overview = {
+    // product_id: id,
     description,
     features,
     whats_included,
@@ -52,11 +49,11 @@ const createOverview = (id, random) => {
 }
 
   // CREATING SPEC DATA //
-const createSpecs = (id, random) => {
+module.exports.createSpecs = (id, random) => {
   let count = 0;
 
   const key_specs = [];
-  const keyCount = random % 3 + 2;
+  const keyCount = random % 3 + 1;
 
   for (let i = count; i < keyCount; i++, count++) {
     key_specs.push({
@@ -69,7 +66,7 @@ const createSpecs = (id, random) => {
   }
 
   const general = [];
-  const genCount = random % 3 + 2 + count;
+  const genCount = random % 3 + 1 + count;
   for (let i = count; i < genCount; i++, count++) {
     general.push({
       spec_id: count,
@@ -105,7 +102,7 @@ const createSpecs = (id, random) => {
   }
 
   const specs = {
-    product_id: id,
+    // product_id: id,
     key_specs,
     general,
     warranty,
@@ -116,8 +113,8 @@ const createSpecs = (id, random) => {
 }
 
   // CREATING REVIEW DATA //
-const createReviews = (id, random) => {
-  const count = 5;
+module.exports.createReviews = ( id, random) => {
+  const count = random % 5;
   const reviews = [];
   const ratingTotals = {};
   let totalRating = 0;
@@ -128,7 +125,7 @@ const createReviews = (id, random) => {
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
     reviews.push({
-      product_id: id,
+      // product_id: id,
       submitter: `${faker.name.firstName()} ${faker.name.lastName()}`,
       submission_date: faker.date.past(),
       rating,
@@ -147,10 +144,10 @@ const createReviews = (id, random) => {
     random += 1;
   }
 
-  const average_rating = totalRating / count;
+  const average_rating = (totalRating / count).toFixed(1);
 
   const reviewSummaryData = {
-    product_id: id,
+    // product_id: id,
     review_count: count,
     average_rating,
     five_star: ratingTotals[5] || 0,
@@ -158,10 +155,11 @@ const createReviews = (id, random) => {
     three_star: ratingTotals[3] || 0,
     two_star: ratingTotals[2] || 0,
     one_star: ratingTotals[1] || 0,
-    would_recommend_pct: (average_rating * 20 + 5).toFixed(0),
+    would_recommend_pct: Number(average_rating * 20 + 5).toFixed(0),
   };
 
   const reviewData = {
+    // product_id: id,
     count,
     reviews,
     reviewSummaryData
@@ -170,12 +168,11 @@ const createReviews = (id, random) => {
   return reviewData;
 };
 
-let temp;
+// let temp;
 
-console.time('Creation time');
-for (let i = 0; i < 1; i++) {
-  temp = JSON.stringify(createProduct());
-  temp = JSON.parse(temp);
-  console.log(temp);
-}
-console.timeEnd('Creation time');
+// console.time('Creation time');
+// for (let i = 0; i < 1; i++) {
+//   temp = createProduct();
+//   console.log(temp);
+// }
+// console.timeEnd('Creation time');
