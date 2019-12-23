@@ -3,53 +3,57 @@ const path = require('path');
 
 const combinedGenerator = require('./combinedGenerator');
 
-let overviewCSV = 'product_id, description, features, whats_included\n';
 let specsCSV = 'product_id, key_specs, general, warranty, other\n';
 let reviewMetricSummariesCSV = 'product_id, count, summary/review_count, summary/average_rating, summary/five_star, summary/four_star, summary/three_star, summary/two_star, summary/one_star, summary/would_recommend_pct\n';
 let reviewsOnlyCSV = `product_id, submitter, submission_date, rating, title, text, verified_purchase, would_recommend, helpful_count, unhelpful_count, rated_features, quality_rating, value_rating, ease_of_use_rating\n`;
 
-let random = 3;
-let target = 100;
-let batchSize = 10;
-let lastIndex = 0;
+let randomStart = 3;
+let targetCount = 10000000;
+let batchSize = 400000;
 
-const writeOverviewCSV = (last, batch) => {
+const writeOverviewCSV = (last, batch, target, random, currentBatch = 1) => {
+  let overviewCSV = 'product_id, description, features, whats_included\n';
   console.time('Write time');
-  if (lastIndex === target) {
-    setTimeout(() => console.log('Completed generating overviews.'), 2000);
+  if (last === target) {
+    setTimeout(() => console.log('Completed writing overviews.'), 1200);
     return;
   }
 
-  const stop, lastIndex = last + batch;
+  let stop = last + batch;
 
   for (let i = last + 1; i <= stop; i++) {
     let overview = combinedGenerator.createOverview(i, random++);
 
     overviewCSV += `${i},${
-      overview.description},${JSON.stringify(
-      overview.features)},${JSON.stringify(
-      overview.whats_included)}\n`;
+      overview.description},${
+        JSON.stringify(overview.features)},${
+        JSON.stringify(overview.whats_included)}\n`;
   };
 
   fs.writeFile(
-    path.join(__dirname, 'data/csv/overviews/overviewsData.csv'),
+    path.join(__dirname, `data/csv/overviews/overviewsData${currentBatch}.csv`),
     overviewCSV,
     (err) => {
       if (err) throw err;
 
-      console.log(`Wrote overviews CSV batch. Current total is ${stop} out of ${target}`);
+      setTimeout(() => writeOverviewCSV(stop, batch, target, random, currentBatch + 1), 10);
+
+      console.log(`Wrote overview CSVs, batch of ${batch}. Current total is ${stop} out of ${target}`);
       console.timeEnd('Write time');
     }
   );
 }
 
-const writeSpecsCSV = (last, batch) => {
-  if (lastIndex === target) {
-    setTimeout(() => console.log('Completed generating overviews.'), 2000);
+writeOverviewCSV(0, batchSize, targetCount, randomStart); // 400000 max batch size
+
+const writeSpecsCSV = (last, batch, target, random, currentBatch = 1) => {
+  console.time('Write time');
+  if (last === target) {
+    setTimeout(() => console.log('Completed writing specs.'), 2000);
     return;
   }
 
-  const stop, lastIndex = last + batch;
+  let stop = last + batch;
 
   for (let i = last + 1; i <= last + batch; i++) {
     let specsData = combinedGenerator.createSpecs(i, random++);
@@ -66,28 +70,31 @@ const writeSpecsCSV = (last, batch) => {
   }
 
   fs.writeFile(
-    path.join(__dirname, 'data/csv/specs/specsData.csv'),
+    path.join(__dirname, `data/csv/specs/specsData${currentBatch}.csv`),
     specsCSV,
     (err) => {
       if (err) throw err;
 
-      console.log(`Wrote specs CSV batch.  Current total is ${stop} out of ${target}.`);
+      setTimeout(() => writeSpecsCSV(stop, batch, target, random, currentBatch + 1), 10);
+
+      console.log(`Wrote specs CSV, batch of ${batch}. Current total is ${stop} out of ${target}.`);
       console.timeEnd('Write time');
     }
   );
 }
 
+// writeSpecsCSV(0, batchSize, targetCount, randomStart);
 
-
-const writeReviewMetricsCSV = (last, batch) => {  
-  if (lastIndex === target) {
-    setTimeout(() => console.log('Completed generating overviews.'), 2000);
+const writeReviewMetricsCSV = (last, batch, target, currentBatch = 1) => {  
+  console.time('Write time');
+  if (last === target) {
+    setTimeout(() => console.log('Completed writing review metrics.'), 2000);
     return;
   }
 
-  const stop, lastIndex = last + batch;
+  let stop = last + batch;
 
-  for (let i = last + 1; i <= last + batchSize; i++) {
+  for (let i = last + 1; i <= last + batch; i++) {
     let metrics = combinedGenerator.createReviews(product_id, random);
 
     reviewMetricSummariesCSV += `${i},${
@@ -105,17 +112,30 @@ const writeReviewMetricsCSV = (last, batch) => {
   }
 
   fs.writeFile(
-    path.join(__dirname, 'data/csv/reviews/reviewMetricsData.csv'),
+    path.join(__dirname, `data/csv/reviews/reviewMetricsData${currentBatch}.csv`),
     reviewMetricSummariesCSV,
     (err) => {
       if (err) throw err;
 
-      console.log('Wrote review summaries csv.');
+      setTimeout(() => writeReviewMetricsCSV(stop, batchSize, target, currentBatch + 1), 10);
+
+      console.log(`Wrote review metrics CSV, batch of ${batch}. Current total is ${stop} out of ${target}.`);
+      console.timeEnd('Write time');
     }
   );
 }
 
-const writeReviewsCSV = (last) => {
+// writeReviewMetricsCSV(0, batchSize, targetCount, randomStart);
+
+const writeReviewsCSV = (last, batch, currentBatch = 1) => {
+  console.time('Write time');
+  if (lastIndex === target) {
+    setTimeout(() => console.log('Completed writing reviews.'), 2000);
+    return;
+  }
+
+  let stop, lastIndex = last + batch;
+
   for (let i = last + 1; i <= last + batchSize; i++) {
     let reviewData = combinedGenerator.createReviews(product_id, random);
 
@@ -138,14 +158,17 @@ const writeReviewsCSV = (last) => {
   }
 
   fs.writeFile(
-    path.join(__dirname, 'data/csv/reviews/reviewsOnly.csv'),
+    path.join(__dirname, `data/csv/reviews/reviewsOnly${currentBatch}.csv`),
     reviewsOnlyCSV,
     (err) => {
       if (err) throw err;
 
-      console.log('Wrote only-reviews csv.');
+      setTimeout(() => writeReviewsCSV(stop, batchSize, currentBatch + 1), 10);
+
+      console.log(`Wrote reviews CSV, batch of ${batch}. Current total is ${stop} out of ${target}.`);
+      console.timeEnd('Write time');
     }
   );
 }
 
-// writeCSV(count);
+// writeReviewsCSV(0, batchSize, targetCount, randomStart);
