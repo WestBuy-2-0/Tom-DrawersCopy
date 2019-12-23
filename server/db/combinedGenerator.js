@@ -120,12 +120,12 @@ module.exports.createReviews = ( id, random) => {
   let totalRating = 0;
 
   for (let i = 0; i < count; i++) {
-    const rating = random % 5;
+    const rating = random % 7;
     totalRating += rating;
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
     reviews.push({
-      // product_id: id,
+      product_id: id,
       submitter: `${faker.name.firstName()} ${faker.name.lastName()}`,
       submission_date: faker.date.past(),
       rating,
@@ -144,7 +144,9 @@ module.exports.createReviews = ( id, random) => {
     random += 1;
   }
 
-  const average_rating = (totalRating / count).toFixed(1);
+
+  const average_rating =  count ? (totalRating / count).toFixed(1) : 0;
+  const would_recommend = Number(average_rating * 20 + 5).toFixed(0);
 
   const reviewSummaryData = {
     // product_id: id,
@@ -155,7 +157,9 @@ module.exports.createReviews = ( id, random) => {
     three_star: ratingTotals[3] || 0,
     two_star: ratingTotals[2] || 0,
     one_star: ratingTotals[1] || 0,
-    would_recommend_pct: Number(average_rating * 20 + 5).toFixed(0),
+    would_recommend_pct: 
+      count && would_recommend > 100 
+        ? 100 : !count ? 0 : would_recommend,
   };
 
   const reviewData = {
