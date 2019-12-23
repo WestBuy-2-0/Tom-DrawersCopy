@@ -1,12 +1,15 @@
+const fs = require('fs');
+const path = require('path');
+
 let overviewCSV = 'id, overview\n';
 let specsCSV = 'id, specs\n';
 let reviewsCSV = 'id, reviews\n';
 
-let random = 1;
+let random = 3;
 let count = 10;
 
 const writeCSVData = (amount) => {
-  for (let i = 1; i <= 1; i++) {
+  for (let i = 1; i <= count; i++) {
     const newProduct = combinedGenerator(i, random++);
 
     overviewCSV += `${i},${JSON.stringify(newProduct.overview)}\n`;
