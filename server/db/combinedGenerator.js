@@ -90,7 +90,7 @@ module.exports.createSpecs = (id, random) => {
   }
 
   const other = [];
-  const otherCount = random % 5 + count;
+  const otherCount = random % 3 + count;
   for (let i = count; i < otherCount; i++) {
     other.push({
       spec_id: count,
