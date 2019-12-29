@@ -120,7 +120,7 @@ module.exports.createReviews = ( id, random) => {
   let totalRating = 0;
 
   for (let i = 0; i < count; i++) {
-    const rating = random % 7;
+    const rating = random % 5 + 1;
     totalRating += rating;
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
@@ -149,7 +149,7 @@ module.exports.createReviews = ( id, random) => {
   const would_recommend = Number(average_rating * 20 + 5).toFixed(0);
 
   const reviewSummaryData = {
-    // product_id: id,
+    product_id: id,
     review_count: count,
     average_rating,
     five_star: ratingTotals[5] || 0,
@@ -170,6 +170,8 @@ module.exports.createReviews = ( id, random) => {
   };
 
   return reviewData;
+  // return reviewSummaryData;
+  // return reviews;
 };
 
 // let temp;

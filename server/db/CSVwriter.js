@@ -3,12 +3,9 @@ const path = require('path');
 
 const combinedGenerator = require('./combinedGenerator');
 
-let reviewMetricSummariesCSV = 'product_id, count, summary/review_count, summary/average_rating, summary/five_star, summary/four_star, summary/three_star, summary/two_star, summary/one_star, summary/would_recommend_pct\n';
-let reviewsOnlyCSV = `product_id, submitter, submission_date, rating, title, text, verified_purchase, would_recommend, helpful_count, unhelpful_count, rated_features, quality_rating, value_rating, ease_of_use_rating\n`;
-
 let randomStart = 3;
 let targetCount = 10000000;
-let batchSize = 200000;
+let batchSize = 250000;
 
 const writeOverviewCSV = (last, batch, target, random, currentBatch = 1) => {
   let overviewCSV = 'product_id;description;features;whats_included\n';
@@ -56,7 +53,7 @@ const writeSpecsCSV = (last, batch, target, random, currentBatch = 1) => {
 
   let stop = last + batch;
 
-  for (let i = last + 1; i <= last + batch; i++) {
+  for (let i = last + 1; i <= stop; i++) {
     let specsData = combinedGenerator.createSpecs(i, random++);
 
     // if(i % 1000 === 0) console.log('Made it to', i);
@@ -86,9 +83,11 @@ const writeSpecsCSV = (last, batch, target, random, currentBatch = 1) => {
   );
 }
 
-writeSpecsCSV(0, batchSize, targetCount, randomStart); // 200,000 max clean batch size
+// writeSpecsCSV(0, batchSize, targetCount, randomStart); // 200,000 max clean batch size
 
-const writeReviewMetricsCSV = (last, batch, target, currentBatch = 1) => {  
+const writeReviewMetricsCSV = (last, batch, target, random, currentBatch = 1) => {
+  let reviewMetricSummariesCSV = 'product_id;review_count;average_rating;five_star;four_star;three_star;two_star;one_star;would_recommend_pct\n';
+  
   console.time('Write time');
   if (last === target) {
     setTimeout(() => console.log('Completed writing review metrics.'), 2000);
@@ -97,30 +96,29 @@ const writeReviewMetricsCSV = (last, batch, target, currentBatch = 1) => {
 
   let stop = last + batch;
 
-  for (let i = last + 1; i <= last + batch; i++) {
-    let metrics = combinedGenerator.createReviews(product_id, random);
+  for (let i = last + 1; i <= stop; i++) {
+    let reviewSummaryData = combinedGenerator.createReviews(i, random++);
 
-    reviewMetricSummariesCSV += `${i},${
-      metrics.count},${
-      metrics.reviewSummaryData.review_count},${
-      metrics.reviewSummaryData.average_rating},${
-      metrics.reviewSummaryData.five_star},${
-      metrics.reviewSummaryData.four_star},${
-      metrics.reviewSummaryData.three_star},${
-      metrics.reviewSummaryData.two_star},${
-      metrics.reviewSummaryData.one_star},${
-      metrics.reviewSummaryData.would_recommend_pct}\n`;
+    // if(i % 10000 === 0) console.log('Made it to', i);
 
-    random++;
+    reviewMetricSummariesCSV += `${i};${
+      reviewSummaryData.review_count};${
+      reviewSummaryData.average_rating};${
+      reviewSummaryData.five_star};${
+      reviewSummaryData.four_star};${
+      reviewSummaryData.three_star};${
+      reviewSummaryData.two_star};${
+      reviewSummaryData.one_star};${
+      reviewSummaryData.would_recommend_pct}\n`;
   }
 
   fs.writeFile(
-    path.join(__dirname, `data/csv/reviews/reviewMetricsData${currentBatch}.csv`),
+    path.join(__dirname, `data/csv/reviewMetrics/reviewsData${currentBatch}.csv`),
     reviewMetricSummariesCSV,
     (err) => {
       if (err) throw err;
 
-      setTimeout(() => writeReviewMetricsCSV(stop, batchSize, target, currentBatch + 1), 100);
+      setTimeout(() => writeReviewMetricsCSV(stop, batchSize, target, random, currentBatch + 1), 100);
 
       console.log(`Wrote review metrics CSV, batch of ${batch}. Current total is ${stop} out of ${target}.`);
       console.timeEnd('Write time');
@@ -128,34 +126,41 @@ const writeReviewMetricsCSV = (last, batch, target, currentBatch = 1) => {
   );
 }
 
-// writeReviewMetricsCSV(0, batchSize, targetCount, randomStart);
+// writeReviewMetricsCSV(0, batchSize, targetCount, randomStart); // 2,000,000 max clean batch size
 
-const writeReviewsCSV = (last, batch, currentBatch = 1) => {
+const writeReviewsCSV = (last, batch, target, random, currentBatch = 1) => {
+  let reviewsOnlyCSV = 
+    `product_id;submitter;submission_date;rating;title;text;verified_purchase;would_recommend;helpful_count;unhelpful_count;rated_features;quality_rating;value_rating;ease_of_use_rating\n`;
+
   console.time('Write time');
-  if (lastIndex === target) {
+  if (last === target) {
     setTimeout(() => console.log('Completed writing reviews.'), 2000);
     return;
   }
 
-  let stop, lastIndex = last + batch;
+  let stop = last + batch;
 
-  for (let i = last + 1; i <= last + batchSize; i++) {
-    let reviewData = combinedGenerator.createReviews(product_id, random);
+  for (let i = last + 1; i <= stop; i++) {
+    let reviews = combinedGenerator.createReviews(i, random);
 
-    reviewsOnlyCSV += `${i},${
-      reviewData.reviews[z].submitter},${
-      reviewData.reviews[z].submission_date},${
-      reviewData.reviews[z].rating},${
-      reviewData.reviews[z].title},${
-      reviewData.reviews[z].text},${
-      reviewData.reviews[z].verified_purchase},${
-      reviewData.reviews[z].would_recommend},${
-      reviewData.reviews[z].helpful_count},${
-      reviewData.reviews[z].unhelpful_count},${
-      reviewData.reviews[z].rated_features},${
-      reviewData.reviews[z].quality_rating},${
-      reviewData.reviews[z].value_rating},${
-      reviewData.reviews[z].ease_of_use_rating}\n`;
+    // if(i % 10000 === 0) console.log('Made it to', i);    
+
+    for(let z = 0; z < reviews.length; z++) {
+      reviewsOnlyCSV += `${i};${
+        reviews[z].submitter};${
+        reviews[z].submission_date};${
+        reviews[z].rating};${
+        reviews[z].title};${
+        reviews[z].text};${
+        reviews[z].verified_purchase};${
+        reviews[z].would_recommend};${
+        reviews[z].helpful_count};${
+        reviews[z].unhelpful_count};${
+        reviews[z].rated_features};${
+        reviews[z].quality_rating};${
+        reviews[z].value_rating};${
+        reviews[z].ease_of_use_rating}\n`;
+    }
 
     random++;
   }
@@ -166,7 +171,7 @@ const writeReviewsCSV = (last, batch, currentBatch = 1) => {
     (err) => {
       if (err) throw err;
 
-      setTimeout(() => writeReviewsCSV(stop, batchSize, currentBatch + 1), 100);
+      setTimeout(() => writeReviewsCSV(stop, batchSize, target, random, currentBatch + 1), 100);
 
       console.log(`Wrote reviews CSV, batch of ${batch}. Current total is ${stop} out of ${target}.`);
       console.timeEnd('Write time');
