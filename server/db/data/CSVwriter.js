@@ -179,4 +179,4 @@ const writeReviewsCSV = (last, batch, target, random, currentBatch = 1) => {
   );
 }
 
-// writeReviewsCSV(0, batchSize, targetCount, randomStart);
+// writeReviewsCSV(0, batchSize, targetCount, randomStart); // 250,000 cleanest batch size
