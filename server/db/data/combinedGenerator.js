@@ -90,7 +90,7 @@ module.exports.createSpecs = (id, random) => {
   }
 
   const other = [];
-  const otherCount = random % 5 + count;
+  const otherCount = random % 3 + count;
   for (let i = count; i < otherCount; i++) {
     other.push({
       spec_id: count,
@@ -120,12 +120,12 @@ module.exports.createReviews = ( id, random) => {
   let totalRating = 0;
 
   for (let i = 0; i < count; i++) {
-    const rating = random % 5;
+    const rating = random % 5 + 1;
     totalRating += rating;
     ratingTotals[rating] = ratingTotals[rating] ? ratingTotals[rating] + 1 : 1;
 
     reviews.push({
-      // product_id: id,
+      product_id: id,
       submitter: `${faker.name.firstName()} ${faker.name.lastName()}`,
       submission_date: faker.date.past(),
       rating,
@@ -144,10 +144,12 @@ module.exports.createReviews = ( id, random) => {
     random += 1;
   }
 
-  const average_rating = (totalRating / count).toFixed(1);
+
+  const average_rating =  count ? (totalRating / count).toFixed(1) : 0;
+  const would_recommend = Number(average_rating * 20 + 5).toFixed(0);
 
   const reviewSummaryData = {
-    // product_id: id,
+    product_id: id,
     review_count: count,
     average_rating,
     five_star: ratingTotals[5] || 0,
@@ -155,7 +157,9 @@ module.exports.createReviews = ( id, random) => {
     three_star: ratingTotals[3] || 0,
     two_star: ratingTotals[2] || 0,
     one_star: ratingTotals[1] || 0,
-    would_recommend_pct: Number(average_rating * 20 + 5).toFixed(0),
+    would_recommend_pct: 
+      count && would_recommend > 100 
+        ? 100 : !count ? 0 : would_recommend,
   };
 
   const reviewData = {
@@ -166,6 +170,8 @@ module.exports.createReviews = ( id, random) => {
   };
 
   return reviewData;
+  // return reviewSummaryData;
+  // return reviews;
 };
 
 // let temp;

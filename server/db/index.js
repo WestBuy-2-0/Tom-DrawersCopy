@@ -1,53 +1,137 @@
-const mongo = require('mongodb').MongoClient;
-const combinedGenerator = require('./combinedGenerator');
+// ============= MONGODB CONNECTION =================== //
 
-// const writeJSON = require('./JSONwriter');
-// const JSONdata = require('./data/json/productData.json');
+// const mongo = require('mongodb').MongoClient;
 
-mongo.connect('mongodb://localhost:27017/WestBuyDrawers', { useUnifiedTopology: true } ,(err, client) => {
-  if(err) {
-    throw err;
-  } else {
-    console.log("Connected to the MongoDB...");
-  }
-  const db = client.db('WestBuyDrawers');
+// module.exports = mongo.connect('mongodb://localhost:27017/WestBuyDrawers', { useUnifiedTopology: true } ,(err, client) => {
+//   if(err) {
+//     throw err;
+//   } 
+  
+//   console.log("Connected to the MongoDB...");
+  
+//   return client.db('WestBuyDrawers');
+// });
 
-  // let random = 3;
-  // let count = 10; // 100,000 is the max safe quantity, needs a 70s timeout to be safe (64k ms on tests)
-  // let target = 100;
 
-  const writeJSONData = (lastIndex, count = 10, random = 3, target = 100) => {
-    console.time('Insertion time for this batch');
-    const jsonBatch = [];
-    
-    if(lastIndex === target) {
-      setTimeout(() => {
-        console.log('Finished inserting.');
-      }, 2000);
-      return;
-    }
+// ============= PSQL DB CONNECTION =================== //
 
-    let stop = lastIndex + count;
+const { Pool } = require('pg');
+const { user, password, host, database, port } = require('./data/pgConfig.js');
+const path = require('path');
 
-    for (let i = lastIndex + 1; i <= stop; i++) {
-      const newProduct = combinedGenerator(i, random++);
-      jsonBatch.push(newProduct);
-      lastIndex++;
-      random++;
-    }
-
-    db.collection('WestBuyDrawers').insertMany(jsonBatch)
-    .then(() => {
-      setTimeout(() => {
-      writeJSONData(stop, count, random, target);
-      }, 10);
-      console.log(`Inserted ${count} items into the database. Total made: ${stop} out of ${target}.`);
-      console.timeEnd('Insertion time for this batch');
-    })
-    .catch((err) => {
-      throw err;
-    })
-  };
-
-  writeJSONData(0, 100000, 3, 10000000);
+const pool = new Pool({
+  user,
+  password,
+  host,
+  database,
+  port,
 });
+
+pool.connect(err => {
+  if(err) console.log(err);
+  else {
+    console.log(`Connected to Postgres DB ${database} on port ${port}...`);
+  }
+});
+
+// pool.query('SELECT * FROM overviews;', (err, res) => {
+//   if (err) console.log(err);
+//   else console.log(res.rows);
+// });
+
+
+// CSV INSERTIONS //
+
+// OVERVIEWS
+const importOverviews = (currentFile = 1) => {
+  if(currentFile > 25) {
+    setTimeout(() => console.log('Finished all overviews insertions.'), 1500);
+    return;
+  }
+  console.time('Insertion time')
+  let filePath = path.join(__dirname, `/data/csv/overviews/overviewsData${currentFile}.csv`);
+  pool
+    .query(`COPY overviews FROM '${filePath}' DELIMITER ';' CSV HEADER;`)
+    .then(() => {
+      console.log(`Imported CSV ${currentFile}.`);
+      console.timeEnd('Insertion time');
+      setTimeout(() => importOverviews(currentFile + 1), 10);
+      })
+    .catch(err => console.log(err));
+};
+
+// // importOverviews(); FINISHED
+
+// SPECS
+const importSpecs = (currentFile = 1) => {
+  if (currentFile > 50) {
+    setTimeout(() => console.log('Finished all specs insertions.'), 1500);
+    return;
+  }
+  console.time('Insertion time');
+  let filePath = path.join(
+    __dirname,
+    `/data/csv/specs/specsData${currentFile}.csv`
+  );
+  pool
+    .query(`COPY specs FROM '${filePath}' DELIMITER ';' CSV HEADER;`)
+    .then(() => {
+      console.log(`Imported specs CSV ${currentFile} out of 50.`);
+      console.timeEnd('Insertion time');
+      setTimeout(() => importSpecs(currentFile + 1), 10);
+    })
+    .catch((err) => console.log(err));
+};
+
+// // importSpecs();  // FINISHED
+
+// REVIEW METRICS
+
+const importReviewMetrics = (currentFile = 1) => {
+  if (currentFile > 5) {
+    setTimeout(() => console.log('Finished all review metrics insertions.'), 1500);
+    return;
+  }
+  console.time('Insertion time');
+  let filePath = path.join(
+    __dirname,
+    `/data/csv/reviewMetrics/reviewsData${currentFile}.csv`
+  );
+  pool
+    .query(`COPY review_metrics FROM '${filePath}' DELIMITER ';' CSV HEADER;`)
+    .then(() => {
+      console.log(`Imported review metrics CSV ${currentFile} out of 5.`);
+      console.timeEnd('Insertion time');
+      setTimeout(() => importReviewMetrics(currentFile + 1), 10);
+    })
+    .catch((err) => console.log(err));
+};
+
+// // importReviewMetrics(); // FINISHED
+
+// REVIEWS
+
+const importReviews = (currentFile = 1) => {
+  if (currentFile > 40) {
+    setTimeout(() => console.log('Finished all reviews insertions.'), 1500);
+    return;
+  }
+  console.time('Insertion time');
+  let filePath = path.join(
+    __dirname,
+    `/data/csv/reviews/reviewsOnly${currentFile}.csv`
+  );
+    
+  pool
+    .query(
+      `COPY reviews (product_id, submitter, submission_date, rating, title, text, verified_purchase, would_recommend, helpful_count, unhelpful_count, rated_features, quality_rating, value_rating, ease_of_use_rating) FROM '${filePath}' DELIMITER ';' CSV HEADER;`
+    )
+    .then(() => {
+      console.log(`Imported reviews CSV ${currentFile} out of 40.`);
+      console.timeEnd('Insertion time');
+      setTimeout(() => importReviews(currentFile + 1), 10);
+    })
+    .catch((err) => console.log(err));
+};
+
+// importReviews();  // FINISHED
