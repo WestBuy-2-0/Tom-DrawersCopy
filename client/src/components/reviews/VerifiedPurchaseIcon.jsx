@@ -6,7 +6,7 @@ const VerifiedPurchaseIcon = props => {
   return (
     <div style={{ display: isVP }}>
       <span className="verified-purchase">
-        <i class="far fa-check-circle"></i>
+        <i className="far fa-check-circle"></i>
         Verified Purchase
       </span>
       <span className="review-info-divider">|</span>

@@ -12,7 +12,7 @@ export default class Drawers extends React.Component {
     super(props);
 
     this.state = {
-      productId: 10
+      productId: 10,
     };
   }
 
@@ -21,14 +21,13 @@ export default class Drawers extends React.Component {
     const getProductID = () => {
       let productUrl = window.location.href;
       let urlBits = productUrl.split("/");
-      // return pathname.split("/")[2];
-      console.log("URL BITS! ", urlBits[urlBits.length - 2]);
+      // console.log("URL BITS! ", urlBits[urlBits.length - 2]);
       return urlBits[urlBits.length - 2];
     };
     let productId = parseInt(getProductID());
-    console.log("new product ID parsed: ", productId);
+    // console.log("new product ID parsed: ", productId);
     this.setState({productId}, () => {
-      console.log("Product ID updated in state: ", this.state.productId)
+      // console.log("Product ID updated in state: ", this.state.productId)
     });
   }
 
@@ -47,7 +46,6 @@ export default class Drawers extends React.Component {
   //     });
   //   }
   //   }
-  
 
   render() {
     return (

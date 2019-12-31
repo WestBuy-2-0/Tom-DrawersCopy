@@ -8,6 +8,10 @@ import axios from "axios";
 
 // import styles from './Overview.css';
 
+// const baseURL = 'http://west-buy-drawers.us-east-2.elasticbeanstalk.com/';
+
+const baseURL = 'http://localhost:3030';
+
 export default class Overview extends React.Component {
   constructor(props) {
     super(props);
@@ -27,24 +31,24 @@ export default class Overview extends React.Component {
   componentDidMount() {
     axios
       .get(
-        `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/overview/${this.props.productId}`
+        `${baseURL}/overview/${this.props.productId}`
       )
       .then(data => {
         this.setState({ overviewData: data.data });
       });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.productId != this.props.productId) {
-      axios
-        .get(
-          `http://west-buy-drawers.us-east-2.elasticbeanstalk.com/overview/${this.props.productId}`
-        )
-        .then(data => {
-          this.setState({ overviewData: data.data });
-        });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.productId !== this.props.productId) {
+  //     axios
+  //       .get(
+  //         `${baseURL}/overview/${this.props.productId}`
+  //       )
+  //       .then(data => {
+  //         this.setState({ overviewData: data.data });
+  //       });
+  //   }
+  // }
 
   toggle() {
     this.setState(state => {

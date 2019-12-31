@@ -91,7 +91,7 @@ module.exports = {
       ease_of_use_rating: 2
     }
   ],
-  reviewSummaryData: [
+  reviewSummaryData:
     {
       product_id: 55,
       review_count: 5,
@@ -103,5 +103,4 @@ module.exports = {
       one_star: 1,
       would_recommend_pct: 80
     }
-  ]
 };
