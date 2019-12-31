@@ -16,7 +16,7 @@ CREATE TABLE specs (
 CREATE TABLE reviewMetrics (
   product_id INT PRIMARY KEY,
   review_count INT,
-  average_rating INT,
+  average_rating REAL,
   five_star INT,
   four_star INT,
   three_star INT,
@@ -26,7 +26,8 @@ CREATE TABLE reviewMetrics (
 );
 
 CREATE TABLE reviews (
-  product_id INT PRIMARY KEY,
+  review_id SERIAL PRIMARY KEY,
+  product_id INT,
   submitter TEXT,
   submission_date TEXT,
   rating INT,
