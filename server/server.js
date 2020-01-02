@@ -1,5 +1,4 @@
 const express = require("express");
-// const mountRoutes = require("./routes");
 const cors = require("cors");
 const port = 3030;
 // const port = process.env.PORT;
@@ -7,7 +6,7 @@ const port = 3030;
 const mongo = require('./models/mongoModel');
 const postgres = require('./models/postgresModel');
 
-const isMongo = false;
+const isMongo = true;
 
 const app = express();
 
@@ -15,13 +14,10 @@ app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
 app.use(cors());
 
-// mountRoutes(app);
-
 // ROUTES FOR MONGO
 if (isMongo) {
   app.get('/overview/:id', async (req, res) => {
     const data = await mongo.findProduct(req.params);
-    console.log(data);
     res.send(data.overview);
   });
 
