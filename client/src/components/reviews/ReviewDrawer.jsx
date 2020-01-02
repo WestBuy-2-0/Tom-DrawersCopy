@@ -67,6 +67,7 @@ export default class ReviewDrawer extends React.Component {
         `${baseURL}/reviews/${this.props.productId}`
       )
       .then(data => {
+        console.log('REVIEWS', data);
         if (data.data.count && data.data.count > 0) {
           this.setState({ reviewData: data.data }, () => {
             this.setState({ renderedReviews: this.truncateReviews(8) });

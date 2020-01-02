@@ -34,6 +34,7 @@ export default class Overview extends React.Component {
         `${baseURL}/overview/${this.props.productId}`
       )
       .then(data => {
+        console.log('OVERVIEW', data);
         this.setState({ overviewData: data.data });
       });
   }

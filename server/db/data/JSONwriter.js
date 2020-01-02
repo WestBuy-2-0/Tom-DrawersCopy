@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const combinedGenerator = require('./combinedGenerator');
+// const combinedGenerator = require('./combinedGenerator');
 
 const jsonBatch = [];
 
