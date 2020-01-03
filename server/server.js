@@ -1,8 +1,13 @@
+require('newrelic');
 const express = require("express");
-const mountRoutes = require("./routes");
 const cors = require("cors");
 const port = 3030;
 // const port = process.env.PORT;
+
+const mongo = require('./models/mongoModel');
+const postgres = require('./models/postgresModel');
+
+const isMongo = false;
 
 const app = express();
 
@@ -10,7 +15,152 @@ app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
 app.use(cors());
 
-mountRoutes(app);
+// ROUTES FOR MONGO
+if (isMongo) {
+  // route for testing:
+  app.get('/product', async (req, res) => {
+    const id = {
+      id: ~~(Math.random() * 1000000) + 9000000,
+    };
+    const product = await mongo.findProduct(id);
+    res.send(product);
+  });
+
+  // ==================
+  app.get('/overview/:id', async (req, res) => { // true endpoint needs to be overview/:id **
+    const data = await mongo.findProduct(req.params);
+    res.send(data.overview);
+  });
+
+  app.post('/overview', (req, res) => {
+    res.send('You hit the overview post endpoint.');
+  });
+
+  app.get('/specs/:id', async (req, res) => {
+    const data = await mongo.findProduct(req.params);
+    res.send(data.specData);
+  });
+
+  app.post('/specs', (req, res) => {
+    res.send('You hit the specs post endpoint.');
+  });
+
+  app.get('/reviews/:id', async (req, res) => {
+    const data = await mongo.findProduct(req.params);
+    data.reviewData.reviewSummaryData.average_rating = Number(data.reviewData.reviewSummaryData.average_rating);
+    res.send(data.reviewData);
+  });
+
+  app.post('/reviews', (req, res) => {
+    res.send('You hit the reviews post endpoint.')
+  });
+} 
+
+// ROUTES FOR POSTGRES 
+else {
+  app.get('/product', (req, res) => {
+    const id = {
+      id: ~~(Math.random() * 1000000) + 9000000,
+    };
+    const promises = [
+      postgres.findOverview(id),
+      postgres.findSpecs(id),
+      postgres.findReviewMetrics(id),
+      postgres.findReviews(id),
+    ];
+
+    Promise.all(promises)
+      .then((data) => {
+        console.log(data[2].rows[0]);
+        const rawOverview = data[0].rows[0];
+        const overview = {
+          description: rawOverview.description,
+          features: JSON.parse(rawOverview.features),
+          whats_included: JSON.parse(rawOverview.whats_included),
+        };
+        const rawSpecs = data[1].rows[0];
+        const specData = {
+          key_specs: JSON.parse(rawSpecs.key_specs),
+          general: JSON.parse(rawSpecs.general),
+          warranty: JSON.parse(rawSpecs.warranty),
+          other: JSON.parse(rawSpecs.other),
+        };
+        const reviewSummaryData = data[2].rows[0];
+        const reviews = data[3].rows;
+        const reviewData = {
+          count: reviews.length,
+          reviews,
+          reviewSummaryData,
+        };
+        const product = {
+          product_id: id.id,
+          overview,
+          specData,
+          reviewData,
+        }
+        res.send(product);
+      })
+      .catch(err => console.log(err));
+  });
+
+  app.get('/overview/:id', (req, res) => { // change back to overview/:id for actual front end connection
+    postgres.findOverview(req.params)
+      .then((data) => {
+        let overview = data.rows[0];
+        overview.features = JSON.parse(overview.features);
+        overview.whats_included = JSON.parse(overview.whats_included);
+        res.send(overview);
+      })
+      .catch(err => console.log(err));
+  });
+
+  app.post('/overview', (req, res) => {
+    res.send('You hit the overview post endpoint.');
+  });
+
+  app.get('/specs/:id', (req, res) => {
+    postgres
+      .findSpecs(req.params)
+      .then((data) => {
+        let specData = data.rows[0];
+        specData.key_specs = JSON.parse(specData.key_specs);
+        specData.general = JSON.parse(specData.general);
+        specData.warranty = JSON.parse(specData.warranty);
+        specData.other = JSON.parse(specData.other);
+        res.send(specData);
+      })
+      .catch((err) => console.log(err));
+  });
+
+  app.post('/specs', (req, res) => {
+    res.send('You hit the specs post endpoint.');
+  });
+
+  app.get('/reviews/:id', (req, res) => {
+    const promises = [];
+    promises.push(postgres.findReviewMetrics(req.params));
+    promises.push(postgres.findReviews(req.params));
+
+    Promise.all(promises)
+      .then((data) => {
+        const metrics = data[0].rows[0];
+        const reviews = data[1].rows;
+
+        const reviewData = {
+          count: reviews.length,
+          reviews,
+          reviewSummaryData: metrics,
+        }
+
+        res.send(reviewData);
+      })
+      .catch((err) => console.log('Error', err));
+  });
+
+  app.post('/reviews', (req, res) => {
+    res.send('You hit the reviews post endpoint.');
+  });
+}
 
 app.listen(port, () => {
   console.log("Listening on port " + port + "...");

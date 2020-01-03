@@ -34,6 +34,7 @@ export default class Specs extends React.Component {
         `${baseURL}/specs/${this.props.productId}`
       )
       .then(data => {
+        console.log('SPECS', data);
         this.setState({ specData: data.data });
       });
   }
