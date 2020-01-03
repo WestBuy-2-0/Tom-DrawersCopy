@@ -17,11 +17,18 @@ app.use(cors());
 
 // ROUTES FOR MONGO
 if (isMongo) {
-  app.get('/overview', async (req, res) => { // true endpoint needs to be overview/:id **
-    const product_id = {
-      id: ~~(Math.random() * 1000000) + 9000001,
-    }
-    const data = await mongo.findProduct(product_id);
+  // route for testing:
+  app.get('/product', async (req, res) => {
+    const id = {
+      id: ~~(Math.random() * 1000000) + 9000000,
+    };
+    const product = await mongo.findProduct(id);
+    res.send(product);
+  });
+
+  // ==================
+  app.get('/overview/:id', async (req, res) => { // true endpoint needs to be overview/:id **
+    const data = await mongo.findProduct(req.params);
     res.send(data.overview);
   });
 
@@ -30,10 +37,7 @@ if (isMongo) {
   });
 
   app.get('/specs/:id', async (req, res) => {
-    const product_id = {
-      id: ~~(Math.random() * 1000000) + 9000001
-    };
-    const data = await mongo.findProduct(product_id);
+    const data = await mongo.findProduct(req.params);
     res.send(data.specData);
   });
 
@@ -42,10 +46,7 @@ if (isMongo) {
   });
 
   app.get('/reviews/:id', async (req, res) => {
-    const product_id = {
-      id: ~~(Math.random() * 1000000) + 9000001
-    };
-    const data = await mongo.findProduct(product_id);
+    const data = await mongo.findProduct(req.params);
     data.reviewData.reviewSummaryData.average_rating = Number(data.reviewData.reviewSummaryData.average_rating);
     res.send(data.reviewData);
   });
@@ -57,11 +58,53 @@ if (isMongo) {
 
 // ROUTES FOR POSTGRES 
 else {
-  app.get('/overview', (req, res) => { // change back to overview/:id for actual front end connection
-    const product_id = {
-      id: ~~(Math.random() * 1000000) + 9000001
+  app.get('/product', (req, res) => {
+    const id = {
+      id: ~~(Math.random() * 1000000) + 9000000,
     };
-    postgres.findOverview(product_id)
+    const promises = [
+      postgres.findOverview(id),
+      postgres.findSpecs(id),
+      postgres.findReviewMetrics(id),
+      postgres.findReviews(id),
+    ];
+
+    Promise.all(promises)
+      .then((data) => {
+        console.log(data[2].rows[0]);
+        const rawOverview = data[0].rows[0];
+        const overview = {
+          description: rawOverview.description,
+          features: JSON.parse(rawOverview.features),
+          whats_included: JSON.parse(rawOverview.whats_included),
+        };
+        const rawSpecs = data[1].rows[0];
+        const specData = {
+          key_specs: JSON.parse(rawSpecs.key_specs),
+          general: JSON.parse(rawSpecs.general),
+          warranty: JSON.parse(rawSpecs.warranty),
+          other: JSON.parse(rawSpecs.other),
+        };
+        const reviewSummaryData = data[2].rows[0];
+        const reviews = data[3].rows;
+        const reviewData = {
+          count: reviews.length,
+          reviews,
+          reviewSummaryData,
+        };
+        const product = {
+          product_id: id.id,
+          overview,
+          specData,
+          reviewData,
+        }
+        res.send(product);
+      })
+      .catch(err => console.log(err));
+  });
+
+  app.get('/overview/:id', (req, res) => { // change back to overview/:id for actual front end connection
+    postgres.findOverview(req.params)
       .then((data) => {
         let overview = data.rows[0];
         overview.features = JSON.parse(overview.features);
