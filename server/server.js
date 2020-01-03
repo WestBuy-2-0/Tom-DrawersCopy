@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require("express");
 const cors = require("cors");
 const port = 3030;
@@ -6,7 +7,7 @@ const port = 3030;
 const mongo = require('./models/mongoModel');
 const postgres = require('./models/postgresModel');
 
-const isMongo = true;
+const isMongo = false;
 
 const app = express();
 
@@ -16,8 +17,11 @@ app.use(cors());
 
 // ROUTES FOR MONGO
 if (isMongo) {
-  app.get('/overview/:id', async (req, res) => {
-    const data = await mongo.findProduct(req.params);
+  app.get('/overview', async (req, res) => { // true endpoint needs to be overview/:id **
+    const product_id = {
+      id: ~~(Math.random() * 1000000) + 9000001,
+    }
+    const data = await mongo.findProduct(product_id);
     res.send(data.overview);
   });
 
@@ -26,7 +30,10 @@ if (isMongo) {
   });
 
   app.get('/specs/:id', async (req, res) => {
-    const data = await mongo.findProduct(req.params);
+    const product_id = {
+      id: ~~(Math.random() * 1000000) + 9000001
+    };
+    const data = await mongo.findProduct(product_id);
     res.send(data.specData);
   });
 
@@ -35,7 +42,10 @@ if (isMongo) {
   });
 
   app.get('/reviews/:id', async (req, res) => {
-    const data = await mongo.findProduct(req.params);
+    const product_id = {
+      id: ~~(Math.random() * 1000000) + 9000001
+    };
+    const data = await mongo.findProduct(product_id);
     data.reviewData.reviewSummaryData.average_rating = Number(data.reviewData.reviewSummaryData.average_rating);
     res.send(data.reviewData);
   });
@@ -47,11 +57,13 @@ if (isMongo) {
 
 // ROUTES FOR POSTGRES 
 else {
-  app.get('/overview/:id', (req, res) => {
-    postgres.findOverview(req.params)
+  app.get('/overview', (req, res) => { // change back to overview/:id for actual front end connection
+    const product_id = {
+      id: ~~(Math.random() * 1000000) + 9000001
+    };
+    postgres.findOverview(product_id)
       .then((data) => {
         let overview = data.rows[0];
-        console.log(overview.features);
         overview.features = JSON.parse(overview.features);
         overview.whats_included = JSON.parse(overview.whats_included);
         res.send(overview);
@@ -88,8 +100,6 @@ else {
 
     Promise.all(promises)
       .then((data) => {
-        console.log('METRICS:', data[0].rows[0]);
-        console.log('REVIEWS:', data[1].rows);
         const metrics = data[0].rows[0];
         const reviews = data[1].rows;
 
